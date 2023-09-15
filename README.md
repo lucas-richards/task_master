@@ -29,6 +29,7 @@ Wahid Siddiqi: GithubMaster, Backend Engineer
 #  Wireframes
 
 #  ERD
+![Alt text](https://github.com/WahidSiddiqi/task_master/blob/main/images/Screen%20Shot%202023-09-15%20at%2012.49.24%20PM.png)
 
 #  MVP
 
