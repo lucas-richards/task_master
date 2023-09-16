@@ -15,5 +15,11 @@ class ProjectList(ListView):
   model = Project
   template_name = 'projects/index.html'
 
+class ProjectDetail(DetailView):
+  model = Project
+  template_name = 'projects/detail.html'
 
+# TASK VIEWS
+# COMMENT VIEWS
+# PROFILE VIEWS
 
