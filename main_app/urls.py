@@ -13,5 +13,8 @@ urlpatterns = [
     # COMMENTS
     # REGISTRATION
     path('accounts/signup/', views.signup, name='signup'),
+    # PROFILE
+    path('profile/', views.profile, name='profile'),
+
 
 ]

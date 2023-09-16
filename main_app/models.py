@@ -8,6 +8,18 @@ STATUS = (
     ('H', 'On Hold'),
     ('C', 'Completed')
 )
+DEPARTMENT = (
+    ('Quality/Testing'),
+    ('Developers'),
+    ('Design'),
+    ('Arquitect'),
+    ('Manager'),
+)
+
+# Profile
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    department = models.CharField(max_length=100)
 
 # Comment
 class Comment(models.Model):
