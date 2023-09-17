@@ -15,6 +15,7 @@ urlpatterns = [
     path('projects/<int:pk>/delete/',
          views.ProjectDelete.as_view(), name='projects_delete'),
     # TASKS
+    path('tasks/', views.task_list, name='task_list'),
     # COMMENTS
     # REGISTRATION
     path('accounts/signup/', views.signup, name='signup'),
