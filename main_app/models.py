@@ -3,7 +3,6 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 from datetime import datetime, timedelta
-from .models import Task
 
 STATUS = (
     ('P', 'In Process'),
@@ -20,17 +19,13 @@ Priority = (
 # Comment
 
 
-
-
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.CharField(max_length=100)
     created_date = models.DateTimeField(auto_now_add=True)
 
 
-
 class Project(models.Model):
-
 
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
@@ -46,27 +41,29 @@ class Project(models.Model):
     )
     # tasks = models.ForeignKey(Task, on_delete=models.CASCADE)
 
+
 class Task(models.Model):
 
     title = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
-    created_by = models.ForeignKey(User, related_name='tasks_created', on_delete=models.CASCADE)
-    owner = models.ForeignKey(User, related_name='owned_tasks', on_delete=models.CASCADE)
+    created_by = models.ForeignKey(
+        User, related_name='tasks_created', on_delete=models.CASCADE)
+    owner = models.ForeignKey(
+        User, related_name='owned_tasks', on_delete=models.CASCADE)
     created_date = models.DateTimeField(auto_now_add=True)
     comment = models.TextField(null=True, blank=True)
-    project = models.ForeignKey(Project, related_name='tasks', on_delete=models.CASCADE, null=True, blank=True)
-    
-    # status 
-     status = models.CharField(
+    project = models.ForeignKey(
+        Project, related_name='tasks', on_delete=models.CASCADE, null=True, blank=True)
+
+    # status
+    status = models.CharField(
         max_length=1,
         choices=STATUS,
-        defualt=STATUS[0][0]
-     )
-    #priority
+        default=STATUS[0][0]
+    )
+    # priority
     priority = models.CharField(
-        max_length=6, 
-        choices=PRIORITY
-        default=PRIORITY[0][0]
-        )
-
-
+        max_length=6,
+        choices=Priority,
+        default=Priority[0][0]
+    )
