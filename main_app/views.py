@@ -13,7 +13,11 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
-  
+# PROFILE
+class ProfileDetail(DetailView):
+    model = Profile
+    template_name = 'profile/detail.html'
+
 # PROJECT VIEWS
 class ProjectList(ListView):
   model = Project
@@ -25,7 +29,6 @@ class ProjectDetail(DetailView):
 
 # TASK VIEWS
 # COMMENT VIEWS
-# PROFILE VIEWS
 
 # REGISTRATION VIEWS
 def signup(request):
@@ -48,8 +51,6 @@ def signup(request):
   return render(request, 'registration/signup.html', context)
 
 
-# PROFILE
-def profile(request):
-    return render(request, 'profile.html')
+
 
 
