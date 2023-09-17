@@ -9,17 +9,21 @@ STATUS = (
     ('C', 'Completed')
 )
 DEPARTMENT = (
-    ('Quality/Testing'),
-    ('Developers'),
-    ('Design'),
-    ('Arquitect'),
-    ('Manager'),
+    ('Qua','Quality/Testing'),
+    ('Dev','Developers'),
+    ('Des','Design'),
+    ('Arq','Arquitect'),
+    ('Man','Manager'),
 )
 
 # Profile
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    department = models.CharField(max_length=100)
+    department = meal = models.CharField(
+      max_length=3,
+      #add choices field option that creates drop down
+      choices=DEPARTMENT,
+      default=DEPARTMENT[0][0])
 
 # Comment
 class Comment(models.Model):
