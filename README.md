@@ -27,6 +27,12 @@ Wahid Siddiqi: GithubMaster, Backend Engineer
 * As a Employee I want to complete tasks
 
 #  Wireframes
+![Wireframe 1](images/WF1.jpg)
+![Wireframe 2](images/WF2.jpg)
+![Wireframe 3](images/WF3.jpg)
+![Wireframe 4](images/WF4.jpg)
+![Wireframe 5](images/WF5.jpg)
+![Wireframe 6](images/WF6.jpg)
 
 #  ERD
 ![Alt text](https://github.com/WahidSiddiqi/task_master/blob/main/images/Screen%20Shot%202023-09-15%20at%2012.49.24%20PM.png)
