@@ -1,31 +1,34 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Projects</h1>
-    <hr>
-    <table class="striped">
-        <thead>
-            <tr>
-                <th>Priority</th>
-                <th>Title</th>
-                <th>Status</th>
-                <th>Due Date</th>
-            </tr>
-        </thead>
-        <tbody>
-          {% for project in object_list %}
-            <tr>
-                <th>1</th>
-                <td>
-                    <a href="{% url 'detail' project.id %}">
-                        {{project.title}}
-                    </a>
-                </td>
-                <th>Status</th>
-                <th>Due Date</th>
-            </tr>
-          {% endfor %}
-        </tbody>
-    </table>
-      
+<h1>Projects</h1>
+<hr>
+<table class="striped">
+    <thead>
+        <tr>
+            <th>Priority</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Due Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for project in object_list %}
+        <tr>
+            <th>1</th>
+            <td>
+                <a href="{% url 'detail' project.id %}">
+                    {{project.title}}
+                </a>
+            </td>
+            <th>Status</th>
+            <th>Due Date</th>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'projects_create' %}">
+    <button type="button">Create Project</button>
+</a>
+
 {% endblock %}

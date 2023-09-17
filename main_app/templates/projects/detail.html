@@ -1,36 +1,44 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Project Details</h1>
-  <hr>
-  
-  <h4>{{ project.title }}</h4>
-  <p>{{ project.description}}</p>
-  <hr>
-  <h5>Tasks</h5>       
-  <table class="striped">
-    <thead>
-      <tr>
-        <th>Priority</th>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Status</th>
-        <th>Owner</th>
-        <th>Due Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- {% for task in cat.task_set.all %}
+<h1>Project Details</h1>
+
+<a href="{% url 'projects_delete' project.id %}">
+  <button type="button">Delete Project</button>
+</a>
+<a href="{% url 'projects_update' project.id %}">
+  <button type="button">Update Project</button>
+</a>
+
+<hr>
+
+<h4>{{ project.title }}</h4>
+<p>{{ project.description}}</p>
+<hr>
+<h5>Tasks</h5>
+<table class="striped">
+  <thead>
+    <tr>
+      <th>Priority</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Owner</th>
+      <th>Due Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- {% for task in project.task_set.all %}
         <tr>
           <td>{{task.date}}</td>
           <td>{{task.title}}</td>
         </tr>
       {% endfor %} -->
-    </tbody>
-  </table>
-      
-  
+  </tbody>
+</table>
 
-   
-     
+
+
+
+
 {% endblock %}
