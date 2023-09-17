@@ -18,6 +18,10 @@ class ProfileDetail(DetailView):
     model = Profile
     template_name = 'profile/detail.html'
 
+class ProfileUpdate(UpdateView):
+    model = Profile
+    fields = ['department']
+
 # PROJECT VIEWS
 class ProjectList(ListView):
   model = Project
