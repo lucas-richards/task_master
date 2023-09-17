@@ -19,7 +19,7 @@ DEPARTMENT = (
 # Profile
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    department = meal = models.CharField(
+    department = models.CharField(
       max_length=3,
       #add choices field option that creates drop down
       choices=DEPARTMENT,
