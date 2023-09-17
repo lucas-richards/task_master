@@ -25,9 +25,9 @@ def about(request):
 # ADMIN
 
 #TASK
-def task_list(request):
-    tasks = Task.objects.all()
-    return render(request, 'task_list.html', {'tasks': tasks})
+# def task_list(request):
+#     tasks = Task.objects.all()
+#     return render(request, 'task_list.html', {'tasks': tasks})
 
 
 # PROJECT VIEWS
