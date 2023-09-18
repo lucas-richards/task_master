@@ -1,28 +1,28 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Projects</h1>
+<h1 class="project">Projects</h1>
 <hr>
-<table class="striped">
+<table class="highlight cursor-pointer">
     <thead>
         <tr>
-            <th>Priority</th>
             <th>Title</th>
             <th>Status</th>
             <th>Due Date</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         {% for project in object_list %}
-        <tr>
-            <th>1</th>
-            <td>
-                <a href="{% url 'projects_detail' project.id %}">
-                    {{project.title}}
-                </a>
-            </td>
+        <tr class="clickable-row" data-href="{% url 'projects_detail' project.id %}">
+            <td>{{project.title}}</td>
             <th>{{project.status}}</th>
             <th>{{project.due_date}}</th>
+            {% if project.late %}
+            <th class="red-text">Late</th>
+            {% else %}
+            <th class="green-text">On Time</th>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>
@@ -30,4 +30,16 @@
 <a href="{% url 'projects_create' %}">
     <button type="button">Create Project</button>
 </a>
+
+<script>
+    // JavaScript to make table rows clickable
+    document.addEventListener('DOMContentLoaded', function() {
+        let rows = document.querySelectorAll('.clickable-row');
+        rows.forEach(function(row) {
+            row.addEventListener('click', function() {
+                window.location.href = row.getAttribute('data-href');
+            });
+        });
+    });
+</script>
 {% endblock %}

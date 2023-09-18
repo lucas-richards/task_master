@@ -3,43 +3,36 @@
 {% block content %}
 <h1>Task Details</h1>
 
-<a href="{% url 'tasks_delete' project.id %}">
+<a href="{% url 'tasks_delete' task.id %}">
   <button type="button">Delete Task</button>
 </a>
-<a href="{% url 'tasks_update' project.id %}">
+<a href="{% url 'tasks_update' task.id %}">
   <button type="button">Update Task</button>
 </a>
 
 <hr>
 
-<h4>{{ task.title }}</h4>
-<p>{{ task.description}}</p>
-<p>{{ task.status}}</p>
-<p>{{ task.created}}</p>
+<h4>Title: {{ task.title }}</h4>
+<p>Description: {{ task.description}}</p>
+<p>Status: {{ task.status}}</p>
+<p>Created by: {{ task.created_by}}</p>
+<p>To: {{ task.owner}}</p>
 <hr>
-<h5>Tasks</h5>
-<table class="striped">
-  <thead>
-    <tr>
-      <th>Priority</th>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Status</th>
-      <th>Owner</th>
-      <th>Due Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for task in tasks %}
-    <tr>
-        <th>{{task.priority}}</th>
-        <th>{{task.title}}</th>
-        <th>{{task.description}}</th>
-        <th>{{task.status}}</th>
-        <th>{{task.owner}}</th>
-        <th>{{task.due_date}}</th>
-        
-    </tr>
+<h5>Comments</h5>
+    {% for comment in comments %}
+    <div class="card">
+      <div class="card-content">
+        <p>{{comment.user}}</p>
+        <span class="card-title">
+           {{ comment.content }}
+        </span>
+      </div>
+      <div class="card-action">
+        <form action="" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn red">-</button>
+        </form>
+      </div>
+    </div>
     {% endfor %}
-</tbody>
-</table>
+{% endblock %}

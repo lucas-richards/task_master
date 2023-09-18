@@ -10,7 +10,7 @@
   <button type="button">Update Project</button>
 
 </a>
-<a href="{% url 'tasks_create' %}">
+<a href="{% url 'add_task' project.id %}">
   <button type="button">Create Task</button>
 </a>
 
@@ -37,8 +37,6 @@
         <th>{{task.priority}}</th>
         <th>
           <a href="{% url 'tasks_detail' task.id %}">{{task.title}}</a>
-      
-
         </th>
         
         <th>{{task.description}}</th>
@@ -50,10 +48,5 @@
     {% endfor %}
 </tbody>
 </table>
-
-
-
-
-
 
 {% endblock %}

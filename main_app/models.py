@@ -1,8 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
-from django.utils.timezone import now
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 
 STATUS = (
@@ -34,10 +33,6 @@ class Profile(models.Model):
       choices=DEPARTMENT,
       default=DEPARTMENT[0][0])
 
-
-
-
-
 class Project(models.Model):
 
     title = models.CharField(max_length=100)
@@ -45,7 +40,6 @@ class Project(models.Model):
     three_months_future = datetime.now() + timedelta(days=90)
     due_date = models.DateField(default=three_months_future)
     # owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    # one letter to represent the meal Breakfast Lunch Dinner
     status = models.CharField(
         max_length=1,
         # add choices field option that creates drop down
@@ -53,32 +47,39 @@ class Project(models.Model):
         default=STATUS[0][0]
     )
 
+    def late(self):
+        return self.due_date < date.today()
+    
+    
+    class Meta:
+        ordering = ['due_date']
+
 
 
 class Task(models.Model):
 
     title = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
-    created_by = models.ForeignKey(User, related_name='tasks_created', on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     owner = models.ForeignKey(User, related_name='owned_tasks', on_delete=models.CASCADE)
     three_months_future = datetime.now() + timedelta(days=90)
     due_date = models.DateField(default=three_months_future)
     created_date = models.DateTimeField(auto_now_add=True)
-    project = models.ForeignKey(Project, related_name='tasks', on_delete=models.CASCADE, null=True, blank=True)
-
-
-    # status
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, null=True, blank=True)
     status = models.CharField(
         max_length=1,
         choices=STATUS,
         default=STATUS[0][0]
     )
-    # priority
     priority = models.CharField(
         max_length=6,
         choices=PRIORITY,
         default=PRIORITY[0][0]
     )
+
+    #used to redirect from class based views
+    def get_absolute_url(self):
+        return reverse('task_detail', kwargs={'task_id': self.id})
 
 
 # Comment
