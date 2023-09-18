@@ -33,10 +33,6 @@ class Profile(models.Model):
       choices=DEPARTMENT,
       default=DEPARTMENT[0][0])
 
-
-
-
-
 class Project(models.Model):
 
     title = models.CharField(max_length=100)
@@ -70,8 +66,6 @@ class Task(models.Model):
     due_date = models.DateField(default=three_months_future)
     created_date = models.DateTimeField(auto_now_add=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE, null=True, blank=True)
-
-    # statu
     status = models.CharField(
         max_length=1,
         choices=STATUS,
@@ -82,6 +76,10 @@ class Task(models.Model):
         choices=PRIORITY,
         default=PRIORITY[0][0]
     )
+
+    #used to redirect from class based views
+    def get_absolute_url(self):
+        return reverse('task_detail', kwargs={'task_id': self.id})
 
 
 # Comment

@@ -60,13 +60,13 @@ def add_task(request, proj_id):
 
 class TaskUpdate(UpdateView):
     model = Task
-    # fields = ['title', 'description', 'owner', 'due_date', ' project', 'status', 'priority']
-    fields = '__all__'
-    success_url = '/tasks/'
+    fields = ['title', 'description','status']
+    success_url = '/projects/'
+
 class TaskDelete(DeleteView):
     model = Task
     # instead of fields or using the absolure_url, we just use a success_url
-    success_url = '/tasks/'
+    success_url = '/projects/'
 
 
 # PROJECT VIEWS
