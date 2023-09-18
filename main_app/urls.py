@@ -19,6 +19,8 @@ urlpatterns = [
     path('tasks/<int:pk>/update/',views.TaskUpdate.as_view(), name='tasks_update'),
     path('tasks/<int:pk>/delete/',views.TaskDelete.as_view(), name='tasks_delete'),
     # COMMENTS
+    path('tasks/<int:task_id>/add_comment/', views.add_comment, name='add_comment'),
+    path('comments/<int:pk>/delete/',views.CommentDelete.as_view(), name='comments_delete'),
     # REGISTRATION
     path('accounts/signup/', views.signup, name='signup'),
     # PROFILE

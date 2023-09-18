@@ -5,7 +5,7 @@ from .models import Project, Profile, Task, Comment
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 #create a new task for project
-from .forms import TaskForm
+from .forms import TaskForm, CommentForm
 
 # HOME
 def home(request):
@@ -29,9 +29,7 @@ class ProfileUpdate(UpdateView):
 class TaskList(ListView):
     model = Task
     template_name = 'tasks/index.html'
-# class TaskDetail(DetailView):
-#     model = Task
-#     template_name = 'tasks/detail.html'
+
 
 def tasks_detail(request, task_id):
   task = Task.objects.get(id=task_id)
@@ -112,6 +110,27 @@ def task_list(request):
   return render(request, 'task_list.html', {'tasks' : tasks})
   
 # COMMENT VIEWS
+
+def add_comment(request, task_id):
+    error_message = ''
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.task = Task.objects.get(id=task_id)
+            new_comment.user = request.user 
+            new_comment.save()
+            return redirect('tasks_detail', task_id=task_id)
+        else:
+            error_message = 'Invalid sign up - try again'
+    form = CommentForm()
+    context = {'form': form, 'error_message': error_message}
+    return render(request, 'main_app/task_form.html', context)
+
+class CommentDelete(DeleteView):
+    model = Comment
+    # instead of fields or using the absolure_url, we just use a success_url
+    success_url = '/projects/'
 
 # REGISTRATION VIEWS
 def signup(request):

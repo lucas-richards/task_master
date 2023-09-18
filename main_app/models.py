@@ -77,10 +77,6 @@ class Task(models.Model):
         default=PRIORITY[0][0]
     )
 
-    #used to redirect from class based views
-    def get_absolute_url(self):
-        return reverse('task_detail', kwargs={'task_id': self.id})
-
 
 # Comment
 class Comment(models.Model):
