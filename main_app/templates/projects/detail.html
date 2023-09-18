@@ -8,6 +8,10 @@
 </a>
 <a href="{% url 'projects_update' project.id %}">
   <button type="button">Update Project</button>
+
+</a>
+<a href="{% url 'tasks_create' %}">
+  <button type="button">Create Task</button>
 </a>
 
 <hr>
@@ -31,7 +35,12 @@
     {% for task in tasks %}
     <tr>
         <th>{{task.priority}}</th>
-        <th>{{task.title}}</th>
+        <th>
+          <a href="{% url 'tasks_detail' task.id %}">{{task.title}}</a>
+      
+
+        </th>
+        
         <th>{{task.description}}</th>
         <th>{{task.status}}</th>
         <th>{{task.owner}}</th>
