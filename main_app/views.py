@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Project, Profile, Task
+from .models import Project, Profile, Task, Comment
 #registration imports
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -31,10 +31,40 @@ class ProfileUpdate(UpdateView):
     model = Profile
     fields = ['department']
 
-#TASK
+#TASK VIEWS
 class TaskList(ListView):
     model = Task
     template_name = 'tasks/index.html'
+# class TaskDetail(DetailView):
+#     model = Task
+#     template_name = 'tasks/detail.html'
+
+def tasks_detail(request, task_id):
+  task = Task.objects.get(id=task_id)
+  comments = Comment.objects.filter()
+  return render(request, 'tasks/detail.html', {
+    'comments': comments, 
+    'task': tasks,
+  })
+
+class TaskCreate(CreateView):
+    model = Task
+    # fields = ['title', 'description', 'owner', 'due_date', ' project', 'status', 'priority']
+    fields = '__all__'
+    success_url = '/tasks/'
+
+
+
+
+class TaskUpdate(UpdateView):
+    model = Task
+    # fields = ['title', 'description', 'owner', 'due_date', ' project', 'status', 'priority']
+    fields = '__all__'
+    success_url = '/tasks/'
+class TaskDelete(DeleteView):
+    model = Task
+    # instead of fields or using the absolure_url, we just use a success_url
+    success_url = '/tasks/'
 
 
 # PROJECT VIEWS
