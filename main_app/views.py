@@ -1,23 +1,17 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Project, Profile, Task
+from .models import Project, Profile, Task, Comment
 #registration imports
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+#create a new task for project
+from .forms import TaskForm
 
 # HOME
-
-
-
-
 def home(request):
     return render(request, 'home.html')
 
 # ABOUT
-
-
-
-
 def about(request):
     return render(request, 'about.html')
 
@@ -31,10 +25,48 @@ class ProfileUpdate(UpdateView):
     model = Profile
     fields = ['department']
 
-#TASK
+#TASK VIEWS
 class TaskList(ListView):
     model = Task
     template_name = 'tasks/index.html'
+# class TaskDetail(DetailView):
+#     model = Task
+#     template_name = 'tasks/detail.html'
+
+def tasks_detail(request, task_id):
+  task = Task.objects.get(id=task_id)
+  comments = Comment.objects.filter()
+  return render(request, 'tasks/detail.html', {
+    'comments': comments, 
+    'task': task,
+  })
+
+def add_task(request, proj_id):
+    error_message = ''
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            new_task = form.save(commit=False)
+            new_task.project = Project.objects.get(id=proj_id)
+            new_task.created_by = request.user 
+            new_task.save()
+            return redirect('projects_detail', proj_id=proj_id)
+        else:
+            error_message = 'Invalid sign up - try again'
+    form = TaskForm()
+    context = {'form': form, 'error_message': error_message}
+    return render(request, 'main_app/task_form.html', context)
+
+
+class TaskUpdate(UpdateView):
+    model = Task
+    # fields = ['title', 'description', 'owner', 'due_date', ' project', 'status', 'priority']
+    fields = '__all__'
+    success_url = '/tasks/'
+class TaskDelete(DeleteView):
+    model = Task
+    # instead of fields or using the absolure_url, we just use a success_url
+    success_url = '/tasks/'
 
 
 # PROJECT VIEWS
@@ -45,7 +77,7 @@ class ProjectList(ListView):
 
 def projects_detail(request, proj_id):
   project = Project.objects.get(id=proj_id)
-  tasks = Task.objects.filter()
+  tasks = Task.objects.filter(project=proj_id)
   return render(request, 'projects/detail.html', {
     # include the cat and feeding_form in the context
     'project': project, 

@@ -14,6 +14,10 @@ urlpatterns = [
     path('projects/<int:pk>/delete/',views.ProjectDelete.as_view(), name='projects_delete'),
     # TASKS
     path('tasks/', views.TaskList.as_view(), name='tasks_index'),
+    path('projects/<int:proj_id>/add_task/', views.add_task, name='add_task'),
+    path('tasks/<int:task_id>/', views.tasks_detail, name='tasks_detail'),
+    path('tasks/<int:pk>/update/',views.TaskUpdate.as_view(), name='tasks_update'),
+    path('tasks/<int:pk>/delete/',views.TaskDelete.as_view(), name='tasks_delete'),
     # COMMENTS
     # REGISTRATION
     path('accounts/signup/', views.signup, name='signup'),
