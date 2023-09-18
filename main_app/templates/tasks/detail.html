@@ -14,25 +14,31 @@
 
 <h4>Title: {{ task.title }}</h4>
 <p>Description: {{ task.description}}</p>
-<p>Status: {{ task.status}}</p>
+<p>Status: {% if task.status == "P" %}
+  In Process
+  {% elif task.status == "H" %}
+  On Hold
+  {% elif task.status == "C" %}
+  Completed
+  {% endif %}</p>
 <p>Created by: {{ task.created_by}}</p>
 <p>To: {{ task.owner}}</p>
 <hr>
 <h5>Comments</h5>
-    {% for comment in comments %}
-    <div class="card">
-      <div class="card-content">
-        <p>{{comment.user}}</p>
-        <span class="card-title">
-           {{ comment.content }}
-        </span>
-      </div>
-      <div class="card-action">
-        <form action="" method="POST">
-          {% csrf_token %}
-          <button type="submit" class="btn red">-</button>
-        </form>
-      </div>
-    </div>
-    {% endfor %}
+{% for comment in comments %}
+<div class="card">
+  <div class="card-content">
+    <p>{{comment.user}}</p>
+    <span class="card-title">
+      {{ comment.content }}
+    </span>
+  </div>
+  <div class="card-action">
+    <form action="" method="POST">
+      {% csrf_token %}
+      <button type="submit" class="btn red">-</button>
+    </form>
+  </div>
+</div>
+{% endfor %}
 {% endblock %}
