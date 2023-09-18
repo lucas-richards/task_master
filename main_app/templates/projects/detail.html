@@ -28,14 +28,20 @@
     </tr>
   </thead>
   <tbody>
-    <!-- {% for task in project.task_set.all %}
-        <tr>
-          <td>{{task.date}}</td>
-          <td>{{task.title}}</td>
-        </tr>
-      {% endfor %} -->
-  </tbody>
+    {% for task in tasks %}
+    <tr>
+        <th>{{task.priority}}</th>
+        <th>{{task.title}}</th>
+        <th>{{task.description}}</th>
+        <th>{{task.status}}</th>
+        <th>{{task.owner}}</th>
+        <th>{{task.due_date}}</th>
+        
+    </tr>
+    {% endfor %}
+</tbody>
 </table>
+
 
 
 
