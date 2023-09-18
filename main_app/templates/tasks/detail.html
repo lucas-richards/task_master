@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Task Details</h1>
+
+<a href="{% url 'tasks_delete' project.id %}">
+  <button type="button">Delete Task</button>
+</a>
+<a href="{% url 'tasks_update' project.id %}">
+  <button type="button">Update Task</button>
+</a>
+
+<hr>
+
+<h4>{{ task.title }}</h4>
+<p>{{ task.description}}</p>
+<p>{{ task.status}}</p>
+<p>{{ task.created}}</p>
+<hr>
+<h5>Tasks</h5>
+<table class="striped">
+  <thead>
+    <tr>
+      <th>Priority</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Owner</th>
+      <th>Due Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for task in tasks %}
+    <tr>
+        <th>{{task.priority}}</th>
+        <th>{{task.title}}</th>
+        <th>{{task.description}}</th>
+        <th>{{task.status}}</th>
+        <th>{{task.owner}}</th>
+        <th>{{task.due_date}}</th>
+        
+    </tr>
+    {% endfor %}
+</tbody>
+</table>

@@ -15,6 +15,11 @@ urlpatterns = [
     path('projects/<int:pk>/delete/',views.ProjectDelete.as_view(), name='projects_delete'),
     # TASKS
     path('tasks/', views.TaskList.as_view(), name='tasks_index'),
+    path('tasks/<int:pk>/', views.TaskDetail.as_view(), name='tasks_detail'),
+    path('tasks/<int:task_id>/', views.tasks_detail, name='tasks_detail'),
+    path('tasks/create/', views.TaskCreate.as_view(), name='tasks_create'),
+    path('tasks/<int:pk>/update/',views.TaskUpdate.as_view(), name='tasks_update'),
+    path('tasks/<int:pk>/delete/',views.TaskDelete.as_view(), name='tasks_delete'),
     # COMMENTS
     # REGISTRATION
     path('accounts/signup/', views.signup, name='signup'),

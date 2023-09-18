@@ -6,20 +6,31 @@
 <table class="striped">
     <thead>
         <tr>
-            <th>task</th>
-            
+            <th>Priority</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Owner</th>
+            <th>Due Date</th>
         </tr>
     </thead>
     <tbody>
         {% for task in object_list %}
         <tr>
-            <th>{{task.title}}</th>
-            
+            <th>1</th>
+            <td>
+                <a href="{% url 'tasks_detail' task.id %}">
+                    {{ task.title}}
+                </a>
+            </td>
+            <th>{{task.status}}</th>
+            <th>{{task.due_date}}</th>
+            <th>{{task.owner}}</th>
         </tr>
         {% endfor %}
     </tbody>
 </table>
-<a href="{% url 'projects_create' %}">
-    <button type="button">Create Project</button>
+<a href="{% url 'tasks_create' %}">
+    <button type="button">Create Task</button>
 </a>
 {% endblock %}
