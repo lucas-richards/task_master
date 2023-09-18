@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Tasks</h1>
+<hr>
+<table class="striped">
+    <thead>
+        <tr>
+            <th>task</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in object_list %}
+        <tr>
+            <th>{{task.title}}</th>
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'projects_create' %}">
+    <button type="button">Create Project</button>
+</a>
+{% endblock %}

@@ -9,6 +9,7 @@ STATUS = (
     ('H', 'On Hold'),
     ('C', 'Completed')
 )
+
 DEPARTMENT = (
     ('Qua','Quality/Testing'),
     ('Dev','Developers'),
@@ -26,10 +27,13 @@ class Profile(models.Model):
       choices=DEPARTMENT,
       default=DEPARTMENT[0][0])
 
+Priority = (
+    ('H', 'High'),
+    ('M', 'Medium'),
+    ('L', 'Low')
+)
 
 # Comment
-
-
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.CharField(max_length=100)
@@ -51,3 +55,30 @@ class Project(models.Model):
         default=STATUS[0][0]
     )
     # tasks = models.ForeignKey(Task, on_delete=models.CASCADE)
+
+
+class Task(models.Model):
+
+    title = models.CharField(max_length=255)
+    description = models.TextField(null=True, blank=True)
+    created_by = models.ForeignKey(
+        User, related_name='tasks_created', on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, related_name='owned_tasks', on_delete=models.CASCADE)
+    three_months_future = datetime.now() + timedelta(days=90)
+    due_date = models.DateField(default=three_months_future)
+    created_date = models.DateTimeField(auto_now_add=True)
+    comment = models.TextField(null=True, blank=True)
+    project = models.ForeignKey(Project, related_name='tasks', on_delete=models.CASCADE, null=True, blank=True)
+
+    # status
+    status = models.CharField(
+        max_length=1,
+        choices=STATUS,
+        default=STATUS[0][0]
+    )
+    # priority
+    priority = models.CharField(
+        max_length=6,
+        choices=Priority,
+        default=Priority[0][0]
+    )

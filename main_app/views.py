@@ -1,18 +1,21 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Project, Profile
+from .models import Project, Profile, Task
 #registration imports
-
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 
 # HOME
 
 
+
+
 def home(request):
     return render(request, 'home.html')
 
 # ABOUT
+
+
 
 
 def about(request):
@@ -23,9 +26,16 @@ class ProfileDetail(DetailView):
     model = Profile
     template_name = 'profile/detail.html'
 
+
 class ProfileUpdate(UpdateView):
     model = Profile
     fields = ['department']
+
+#TASK
+class TaskList(ListView):
+    model = Task
+    template_name = 'tasks/index.html'
+
 
 # PROJECT VIEWS
 class ProjectList(ListView):
@@ -33,9 +43,20 @@ class ProjectList(ListView):
     template_name = 'projects/index.html'
 
 
-class ProjectDetail(DetailView):
-    model = Project
-    template_name = 'projects/detail.html'
+
+# class ProjectDetail(DetailView):
+#     model = Project
+#     template_name = 'projects/detail.html'
+
+def projects_detail(request, proj_id):
+  project = Project.objects.get(id=proj_id)
+  tasks = Task.objects.filter()
+  print('these are my tasks',tasks)
+  return render(request, 'projects/detail.html', {
+    # include the cat and feeding_form in the context
+    'project': project, 
+    'tasks': tasks,
+  })
 
 
 class ProjectCreate(CreateView):
@@ -60,6 +81,10 @@ class ProjectDelete(DeleteView):
 
 
 # TASK VIEWS
+def task_list(request):
+  tasks = Task.objects.all()
+  return render(request, 'task_list.html', {'tasks' : tasks})
+  
 # COMMENT VIEWS
 
 # REGISTRATION VIEWS
