@@ -17,7 +17,7 @@
   Completed
   {% endif %}</h6>
 <p>Created by: {{ task.created_by}}</p>
-<p>To: {{ task.owner}}</p>
+<p>To: {{ task.assignee}}</p>
 <a href="{% url 'tasks_delete' task.id %}">
   <button type="button">Delete Task</button>
 </a>

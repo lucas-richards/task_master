@@ -27,7 +27,7 @@
       <th>Title</th>
       <th>Description</th>
       <th>Status</th>
-      <th>Owner</th>
+      <th>Assigned To</th>
       <th>Due Date</th>
     </tr>
   </thead>
@@ -36,8 +36,9 @@
     <tr>
       <th>
         <a href="{% url 'tasks_detail' project.id task.id %}">
-          <i class="material-icons">launch</i></th>
-        </a>
+          <i class="material-icons">launch</i>
+      </th>
+      </a>
       <th>{{task.priority}}</th>
       <th>{{task.title}}</th>
       <th>{{task.description}}</th>
@@ -48,7 +49,7 @@
         {% elif task.status == "C" %}
         Completed
         {% endif %}</th>
-      <th>{{task.owner}}</th>
+      <th>{{task.assignee}}</th>
       <th>{{task.due_date}}</th>
 
     </tr>
@@ -64,11 +65,11 @@
     <div class="modal-footer">
       <a href="#!" class="modal-close waves-effect waves-green btn-flat">X</a>
     </div>
-        <form action="{% url 'add_task' project.id %}" method="POST">
-          {% csrf_token %}
-          {{ task_form.as_p }}
-          <input type="submit" value="Save" class="btn-small black-text white">
-        </form>
+    <form action="{% url 'add_task' project.id %}" method="POST">
+      {% csrf_token %}
+      {{ task_form.as_p }}
+      <input type="submit" value="Save" class="btn-small black-text white">
+    </form>
   </div>
 </div>
 <script>

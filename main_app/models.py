@@ -40,7 +40,7 @@ class Project(models.Model):
     description = models.CharField(max_length=100)
     three_months_future = datetime.now() + timedelta(days=90)
     due_date = models.DateField(default=three_months_future)
-    # owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    # assignee = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.CharField(
         max_length=1,
         # add choices field option that creates drop down
@@ -64,7 +64,7 @@ class Task(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    owner = models.ForeignKey(User, related_name='owned_tasks', on_delete=models.CASCADE)
+    assignee = models.ForeignKey(User, related_name='owned_tasks', on_delete=models.CASCADE)
     three_months_future = datetime.now() + timedelta(days=90)
     due_date = models.DateField(default=three_months_future)
     created_date = models.DateTimeField(auto_now_add=True)
