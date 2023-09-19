@@ -22,3 +22,10 @@ footer.page-footer {
 .small-text {
     font-size: 10px;
 }
+
+.logo-img {
+    height: 50px;   
+    width: auto;    
+    vertical-align: middle; 
+    margin-right: 10px;     
+}
