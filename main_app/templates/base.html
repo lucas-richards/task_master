@@ -23,7 +23,7 @@
           <li><a href="{% url 'about' %}">About</a></li>
           {% if user.is_authenticated %}
           <li><a href="{% url 'projects_index' %}">Projects</a></li>
-          <li><a href="#">Team</a></li>
+          <li><a href="{% url 'team' %}">Team</a></li>
           <li><a href="{% url 'profile_detail' user.id %}">Profile</a></li>
           <li><a href="{% url 'logout' %}">Log Out</a></li>
           {% else %}
@@ -38,6 +38,7 @@
     {% block content %}
     {% endblock %}
   </main>
+
   <footer class="page-footer blue dareken -3">
     <div class="container">
       <div class="row">
@@ -48,10 +49,7 @@
         </div>
         <div class="col l4 offset-l2 s12">
           <h5 class="white-text">Quick Links</h5>
-          <ul>
-            <li><a class="grey-text text-lighten-3" href="/admin">Admin</a></li>
-      <!-- <a href="/admin">Admin</a> -->
-      <!-- <span class="small-text">All Rights Reserved, &copy; 2023 Task Master &nbsp;</span> -->
+       
     </div>
   </footer>
   <script>

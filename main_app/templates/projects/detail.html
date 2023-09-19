@@ -10,9 +10,7 @@
   <button type="button">Update Project</button>
 
 </a>
-<a href="{% url 'add_task' project.id %}">
-  <button type="button">Create Task</button>
-</a>
+
 
 <hr>
 
@@ -20,6 +18,9 @@
 <p>{{ project.description}}</p>
 <hr>
 <h5>Tasks</h5>
+<a href="{% url 'add_task' project.id %}">
+  <button type="button">Create Task</button>
+</a>
 <table class="striped">
   <thead>
     <tr>
@@ -34,19 +35,25 @@
   <tbody>
     {% for task in tasks %}
     <tr>
-        <th>{{task.priority}}</th>
-        <th>
-          <a href="{% url 'tasks_detail' task.id %}">{{task.title}}</a>
-        </th>
-        
-        <th>{{task.description}}</th>
-        <th>{{task.status}}</th>
-        <th>{{task.owner}}</th>
-        <th>{{task.due_date}}</th>
-        
+      <th>{{task.priority}}</th>
+      <th>
+        <a href="{% url 'tasks_detail' task.id %}">{{task.title}}</a>
+      </th>
+
+      <th>{{task.description}}</th>
+      <th>{% if task.status == "P" %}
+        In Process
+        {% elif task.status == "H" %}
+        On Hold
+        {% elif task.status == "C" %}
+        Completed
+        {% endif %}</th>
+      <th>{{task.owner}}</th>
+      <th>{{task.due_date}}</th>
+
     </tr>
     {% endfor %}
-</tbody>
+  </tbody>
 </table>
 
 {% endblock %}
