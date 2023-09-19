@@ -41,11 +41,10 @@
                 {% endif %}
             </td>
 
-            <td>{{project.due_date}}</td>
             {% if project.late %}
-            <td class="red-text">Late</td>
+            <td class="red-text">{{project.due_date}}</td>
             {% else %}
-            <td class="green-text">On Time</td>
+            <td class="green-text">{{project.due_date}}</td>
             {% endif %}
             <td>
                 <a href="{% url 'projects_delete' project.id %}">
