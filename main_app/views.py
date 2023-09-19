@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Project, Profile, Task, Comment
+from .models import Project, Profile, Task, Comment, User
 from .forms import TaskForm, CommentForm
 #registration imports
 from django.contrib.auth import login
@@ -25,6 +25,16 @@ class ProfileUpdate(UpdateView):
     fields = ['department']
     template_name = 'main_app/form.html'
     success_url = '/'
+
+############################# REGISTRATION VIEWS
+
+def team(request):
+  tasks = Task.objects.filter()
+  users = User.objects.filter()
+  return render(request, 'team.html', {
+    'tasks': tasks,
+    'users': users,
+  })
 
 ############################# TASK VIEWS
 class TaskList(ListView):

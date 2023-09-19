@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Team</h1>
+    <hr>
+    <ul>
+    {% for user in users %}
+        <li>{{user.username}}
+            <ul>   
+                {% for task in tasks %}
+                    {% if user.id == task.owner.id %}
+                    <li>
+                        <div class="card">
+                            <a href="{% url 'tasks_detail' task.id %}">
+                                <div class="card-content">
+                                    <span class="card-title">
+                                        Task: {{task.description}}
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+   
+{% endblock %}
