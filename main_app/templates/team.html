@@ -11,7 +11,7 @@
                     {% if user.id == task.owner.id %}
                     <li>
                         <div class="card">
-                            <a href="{% url 'tasks_detail' task.id %}">
+                            <a href="{% url 'tasks_detail' task.project.id task.id %}">
                                 <div class="card-content">
                                     <span class="card-title">
                                         Task: {{task.description}}

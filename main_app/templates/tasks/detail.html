@@ -1,28 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<a href="{% url 'projects_detail' project.id %}">
+  <button type="button">Back to Project</button>
+</a>
 <h1>Task Details</h1>
-
+<hr>
+<h4>Title: {{ task.title }}</h4>
+<h6><span class="bold">Description:</span> {{ task.description}}</h6>
+<h6>Project: {{ project.title }}</h6>
+<h6>Status: {% if task.status == "P" %}
+  In Process
+  {% elif task.status == "H" %}
+  On Hold
+  {% elif task.status == "C" %}
+  Completed
+  {% endif %}</h6>
+<p>Created by: {{ task.created_by}}</p>
+<p>To: {{ task.owner}}</p>
 <a href="{% url 'tasks_delete' task.id %}">
   <button type="button">Delete Task</button>
 </a>
 <a href="{% url 'tasks_update' task.id %}">
   <button type="button">Update Task</button>
 </a>
-
-<hr>
-
-<h4>Title: {{ task.title }}</h4>
-<p>Description: {{ task.description}}</p>
-<p>Status: {% if task.status == "P" %}
-  In Process
-  {% elif task.status == "H" %}
-  On Hold
-  {% elif task.status == "C" %}
-  Completed
-  {% endif %}</p>
-<p>Created by: {{ task.created_by}}</p>
-<p>To: {{ task.owner}}</p>
 <hr>
 <h5>Comments</h5>
 
@@ -44,7 +45,7 @@
     {% endfor %}
     <div class="card">
       <div class="card-content">
-        <form action="{% url 'add_comment' task.id %}" method="POST">
+        <form action="{% url 'add_comment' project.id task.id %}" method="POST">
           {% csrf_token %}
           {{ comment_form.as_p }}
           <input type="submit" value="New Comment" class="btn-small black-text white">
