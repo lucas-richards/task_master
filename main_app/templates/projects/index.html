@@ -31,7 +31,9 @@
     <tbody>
         {% for project in object_list %}
         <tr class="clickable-row" data-href="{% url 'projects_detail' project.id %}">
+            <!-- 1 -->
             <td>{{project.title}}</td>
+            <!-- 2 -->
             <td>{% if project.status == "P" %}
                 In Process
                 {% elif project.status == "H" %}
@@ -40,12 +42,15 @@
                 Completed
                 {% endif %}
             </td>
+            <!-- 3 -->
+            <td>
+                {% if project.late %}
+                <div class="red-text">{{project.due_date}}</div>
+                {% else %}
+                <div class="green-text">{{project.due_date}}</div>
+                {% endif %}
+            </td>
 
-            {% if project.late %}
-            <td class="red-text">{{project.due_date}}</td>
-            {% else %}
-            <td class="green-text">{{project.due_date}}</td>
-            {% endif %}
             <td>
                 <a href="{% url 'projects_delete' project.id %}">
                     <a href="{% url 'projects_delete' project.id %}">

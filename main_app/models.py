@@ -52,6 +52,7 @@ class Project(models.Model):
         return self.due_date < date.today()
     
     
+    
     class Meta:
         ordering = ['due_date']
     
@@ -79,6 +80,9 @@ class Task(models.Model):
         choices=PRIORITY,
         default=PRIORITY[0][0]
     )
+    
+    def late(self):
+        return self.due_date < date.today()
 
   
 

@@ -34,24 +34,29 @@
   <tbody>
     {% for task in tasks %}
     <tr>
-      <th>
+      <td>
         <a href="{% url 'tasks_detail' project.id task.id %}">
           <i class="material-icons">launch</i>
-      </th>
-      </a>
-      <th>{{task.priority}}</th>
-      <th>{{task.title}}</th>
-      <th>{{task.description}}</th>
-      <th>{% if task.status == "P" %}
+        </a>
+      </td>
+      <td>{{task.priority}}</td>
+      <td>{{task.title}}</td>
+      <td>{{task.description}}</td>
+      <td>{% if task.status == "P" %}
         In Process
         {% elif task.status == "H" %}
         On Hold
         {% elif task.status == "C" %}
         Completed
-        {% endif %}</th>
-      <th>{{task.assignee}}</th>
-      <th>{{task.due_date}}</th>
-
+        {% endif %}</td>
+      <td>{{task.assignee}}</td>
+      <td>
+        {% if task.late %}
+        <div class="red-text">{{task.due_date}}</div>
+        {% else %}
+        <div class="green-text">{{task.due_date}}</div>
+        {% endif %}
+      </td>
     </tr>
     {% endfor %}
   </tbody>
