@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Project, Profile, Task, Comment
+from .forms import TaskForm, CommentForm
 #registration imports
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-#create a new task for project
-from .forms import TaskForm, CommentForm
 
 # HOME
 def home(request):
@@ -15,7 +14,7 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
-# PROFILE
+############################# PROFILE
 class ProfileDetail(DetailView):
     model = Profile
     template_name = 'profile/detail.html'
@@ -24,8 +23,10 @@ class ProfileDetail(DetailView):
 class ProfileUpdate(UpdateView):
     model = Profile
     fields = ['department']
+    template_name = 'main_app/form.html'
+    success_url = '/'
 
-#TASK VIEWS
+############################# TASK VIEWS
 class TaskList(ListView):
     model = Task
     template_name = 'tasks/index.html'
@@ -54,22 +55,23 @@ def add_task(request, proj_id):
         else:
             error_message = 'Invalid sign up - try again'
     form = TaskForm()
-    context = {'form': form, 'error_message': error_message}
-    return render(request, 'main_app/task_form.html', context)
+    context = {'form': form, 'error_message': error_message, 'class_name': 'Task'}
+    return render(request, 'main_app/form.html', context)
 
 
 class TaskUpdate(UpdateView):
     model = Task
     fields = ['title', 'description','status']
+    template_name = 'main_app/form.html'
     success_url = '/projects/'
 
 class TaskDelete(DeleteView):
     model = Task
-    # instead of fields or using the absolure_url, we just use a success_url
+    template_name = 'main_app/confirm_delete.html'
     success_url = '/projects/'
 
 
-# PROJECT VIEWS
+############################# PROJECT VIEWS
 class ProjectList(ListView):
     model = Project
     template_name = 'projects/index.html'
@@ -88,19 +90,27 @@ def projects_detail(request, proj_id):
 class ProjectCreate(CreateView):
     model = Project
     fields = ['title', 'description', 'due_date']
+    template_name = 'main_app/form.html'
     success_url = '/projects/'
+    
+    # This method creates a varible called class_name that is used in the form
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['class_name'] = 'Project'
+        return context
 
 class ProjectUpdate(UpdateView):
     model = Project
     fields = ['title', 'description', 'due_date', 'status']
+    template_name = 'main_app/form.html'
     success_url = '/projects/'
 
 class ProjectDelete(DeleteView):
     model = Project
-    # instead of fields or using the absolure_url, we just use a success_url
+    template_name = 'main_app/confirm_delete.html'
     success_url = '/projects/'
   
-# COMMENT VIEWS
+############################# COMMENT VIEWS
 
 def add_comment(request, task_id):
     error_message = ''
@@ -118,10 +128,10 @@ def add_comment(request, task_id):
 
 class CommentDelete(DeleteView):
     model = Comment
-    # instead of fields or using the absolure_url, we just use a success_url
+    template_name = 'main_app/confirm_delete.html'
     success_url = '/projects/'
 
-# REGISTRATION VIEWS
+############################# REGISTRATION VIEWS
 def signup(request):
     error_message = ''
     if request.method == 'POST':
