@@ -42,11 +42,13 @@ class TaskList(ListView):
     template_name = 'tasks/index.html'
 
 
-def tasks_detail(request, task_id):
+def tasks_detail(request, proj_id, task_id):
   task = Task.objects.get(id=task_id)
+  project = Project.objects.get(id=proj_id)
   comment_form = CommentForm()
   comments = Comment.objects.filter(task=task_id)
   return render(request, 'tasks/detail.html', {
+    'project':project,
     'task': task,
     'comments': comments,
     'comment_form': comment_form 
@@ -90,10 +92,12 @@ class ProjectList(ListView):
 def projects_detail(request, proj_id):
   project = Project.objects.get(id=proj_id)
   tasks = Task.objects.filter(project=proj_id)
+  task_form = TaskForm()
   return render(request, 'projects/detail.html', {
     # include the cat and feeding_form in the context
     'project': project, 
     'tasks': tasks,
+    'task_form':task_form
   })
 
 
@@ -122,7 +126,7 @@ class ProjectDelete(DeleteView):
   
 ############################# COMMENT VIEWS
 
-def add_comment(request, task_id):
+def add_comment(request, proj_id, task_id):
     error_message = ''
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -133,8 +137,8 @@ def add_comment(request, task_id):
             new_comment.save()
         else:
             error_message = 'Invalid sign up - try again'
-    context = {'error_message': error_message,}
-    return redirect('tasks_detail', task_id=task_id)
+    context = {'error_message': error_message}
+    return redirect('tasks_detail', proj_id=proj_id, task_id=task_id)
 
 class CommentDelete(DeleteView):
     model = Comment
