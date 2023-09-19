@@ -14,11 +14,18 @@
 
 <h4>Title: {{ task.title }}</h4>
 <p>Description: {{ task.description}}</p>
-<p>Status: {{ task.status}}</p>
+<p>Status: {% if task.status == "P" %}
+  In Process
+  {% elif task.status == "H" %}
+  On Hold
+  {% elif task.status == "C" %}
+  Completed
+  {% endif %}</p>
 <p>Created by: {{ task.created_by}}</p>
 <p>To: {{ task.owner}}</p>
 <hr>
 <h5>Comments</h5>
+
     {% for comment in comments %}
     <div class="card">
       <div class="card-content">
@@ -44,4 +51,5 @@
         </form>
       </div>
     </div>
+
 {% endblock %}

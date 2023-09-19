@@ -16,7 +16,15 @@
         {% for project in object_list %}
         <tr class="clickable-row" data-href="{% url 'projects_detail' project.id %}">
             <td>{{project.title}}</td>
-            <th>{{project.status}}</th>
+            <th>{% if project.status == "P" %}
+                In Process
+                {% elif project.status == "H" %}
+                On Hold
+                {% elif project.status == "C" %}
+                Completed
+                {% endif %}
+            </th>
+
             <th>{{project.due_date}}</th>
             {% if project.late %}
             <th class="red-text">Late</th>
@@ -33,10 +41,10 @@
 
 <script>
     // JavaScript to make table rows clickable
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         let rows = document.querySelectorAll('.clickable-row');
-        rows.forEach(function(row) {
-            row.addEventListener('click', function() {
+        rows.forEach(function (row) {
+            row.addEventListener('click', function () {
                 window.location.href = row.getAttribute('data-href');
             });
         });
