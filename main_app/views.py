@@ -33,10 +33,12 @@ class TaskList(ListView):
 
 def tasks_detail(request, task_id):
   task = Task.objects.get(id=task_id)
-  comments = Comment.objects.filter()
+  comment_form = CommentForm()
+  comments = Comment.objects.filter(task=task_id)
   return render(request, 'tasks/detail.html', {
-    'comments': comments, 
     'task': task,
+    'comments': comments,
+    'comment_form': comment_form 
   })
 
 def add_task(request, proj_id):
@@ -88,26 +90,15 @@ class ProjectCreate(CreateView):
     fields = ['title', 'description', 'due_date']
     success_url = '/projects/'
 
-# UpdateView, very similar to CreateView, needs model and fields
-
-
 class ProjectUpdate(UpdateView):
     model = Project
-    # let's make it so you cant rename a project
     fields = ['title', 'description', 'due_date', 'status']
     success_url = '/projects/'
-
 
 class ProjectDelete(DeleteView):
     model = Project
     # instead of fields or using the absolure_url, we just use a success_url
     success_url = '/projects/'
-
-
-# TASK VIEWS
-def task_list(request):
-  tasks = Task.objects.all()
-  return render(request, 'task_list.html', {'tasks' : tasks})
   
 # COMMENT VIEWS
 
@@ -120,12 +111,10 @@ def add_comment(request, task_id):
             new_comment.task = Task.objects.get(id=task_id)
             new_comment.user = request.user 
             new_comment.save()
-            return redirect('tasks_detail', task_id=task_id)
         else:
             error_message = 'Invalid sign up - try again'
-    form = CommentForm()
-    context = {'form': form, 'error_message': error_message}
-    return render(request, 'main_app/task_form.html', context)
+    context = {'error_message': error_message,}
+    return redirect('tasks_detail', task_id=task_id)
 
 class CommentDelete(DeleteView):
     model = Comment

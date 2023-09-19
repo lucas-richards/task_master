@@ -32,6 +32,7 @@ class Profile(models.Model):
       #add choices field option that creates drop down
       choices=DEPARTMENT,
       default=DEPARTMENT[0][0])
+    
 
 class Project(models.Model):
 
@@ -53,6 +54,8 @@ class Project(models.Model):
     
     class Meta:
         ordering = ['due_date']
+    
+    
 
 
 
@@ -77,6 +80,8 @@ class Task(models.Model):
         default=PRIORITY[0][0]
     )
 
+  
+
 
 # Comment
 class Comment(models.Model):
@@ -84,3 +89,9 @@ class Comment(models.Model):
     content = models.CharField(max_length=100)
     created_date = models.DateTimeField(auto_now_add=True)
     task = models.ForeignKey(Task, on_delete=models.CASCADE, null=True, blank=True)
+
+    
+
+    
+
+    
