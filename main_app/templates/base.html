@@ -14,8 +14,8 @@
 
 <body>
   <header class="navbar-fixed">
-    <nav>
-      <div class="nav-wrapper">
+    <nav class="blue darken-2">
+      <div class="nav-wrapper container">
         <ul>
           <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Task Master</a></li>
         </ul>
@@ -38,11 +38,20 @@
     {% block content %}
     {% endblock %}
   </main>
-  <footer class="page-footer">
-
-    <div class="right">
-      <a href="/admin">Admin</a>
-      All Rights Reserved, &copy; 2023 Task Master &nbsp;
+  <footer class="page-footer blue dareken -3">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Task Master</h5>
+          <p class="grey-text text-lighten-4">Best task management platform.</p>
+          <span class="small-text">All Rights Reserved, &copy; 2023 Task Master</span>
+        </div>
+        <div class="col l4 offset-l2 s12">
+          <h5 class="white-text">Quick Links</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3" href="/admin">Admin</a></li>
+      <!-- <a href="/admin">Admin</a> -->
+      <!-- <span class="small-text">All Rights Reserved, &copy; 2023 Task Master &nbsp;</span> -->
     </div>
   </footer>
   <script>

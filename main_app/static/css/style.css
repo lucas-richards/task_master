@@ -15,4 +15,10 @@ footer.page-footer {
     text-align: left;
 }
 
-
+.page-footer a {
+    font-size: 25px;
+    
+}
+.small-text {
+    font-size: 10px;
+}
