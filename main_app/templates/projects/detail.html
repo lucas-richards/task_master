@@ -22,7 +22,6 @@
 <table class="striped">
   <thead>
     <tr>
-      <th></th>
       <th>Priority</th>
       <th>Title</th>
       <th>Description</th>
@@ -34,11 +33,6 @@
   <tbody>
     {% for task in tasks %}
     <tr>
-      <td>
-        <a href="{% url 'tasks_detail' project.id task.id %}">
-          <i class="material-icons">launch</i>
-        </a>
-      </td>
       <td>{{task.priority}}</td>
       <td>{{task.title}}</td>
       <td>{{task.description}}</td>
@@ -78,14 +72,14 @@
   </div>
 </div>
 <script>
-     const dateEl = document.getElementById('id_due_date');
-        // M is Materialize's global variable
-        M.Datepicker.init(dateEl, {
-            format: 'yyyy-mm-dd',
-            defaultDate: new Date(),
-            setDefaultDate: true,
-            autoClose: true
-        });
+  const dateEl = document.getElementById('id_due_date');
+  // M is Materialize's global variable
+  M.Datepicker.init(dateEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  });
 </script>
 
 {% endblock %}
