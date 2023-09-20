@@ -85,6 +85,8 @@ class Task(models.Model):
     def late(self):
         return self.due_date < date.today()
 
+
+
 # Comment
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

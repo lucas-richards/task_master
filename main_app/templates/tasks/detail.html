@@ -36,17 +36,16 @@
             <button type="submit" class="btn-small black-text white"> X </button>
           </form>
         </div>
-        {% for profile in profiles %}
-          {% if comment.user.id == profile.id %}
-          <img width="5%" src="{{ profile.image_url }}" class="circle" alt="profile-image">
-          {% else %}
-          <img width="5%" src="/static/profile-image.jpeg" class="circle responsive-img" alt="profile-image">
-          {% endif %}
-        {% endfor %}
-        <span class="center">{{comment.user}}</span>
-        <span class="card-title">
-           {{ comment.content }}
-        </span>
+        <small class="left"> {{comment.created_date}}</small>
+        <div id="comment-avatar" class="container">
+          <img width="5%" src="{{ comment.user.profile.image_url }}"  alt="profile-image">
+          <p>{{comment.user}}</p>
+        </div>
+        
+        <div class="container">
+          
+          <h6>{{ comment.content }}</h6>
+        </div>
       </div>
     </div>
     {% endfor %}

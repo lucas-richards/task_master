@@ -206,7 +206,7 @@ def signup(request):
     return render(request, 'registration/signup.html', context)
 
 ############################ ADD PHOTO 
-#adding photo
+
 def add_photo(request, prof_id):
     # photo-file will be the "name" attribute on the <input type="file">
     photo_file = request.FILES.get('photo-file', None)
@@ -234,4 +234,7 @@ def add_photo(request, prof_id):
             print('An error occurred uploading file to S3')
             print(e)
     return redirect('profile_detail',prof_id=prof_id)
+
+
+
 

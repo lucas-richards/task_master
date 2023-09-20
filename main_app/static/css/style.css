@@ -22,3 +22,14 @@ footer.page-footer {
 .small-text {
     font-size: 10px;
 }
+
+#comment-avatar{
+    display: flex;
+    align-items: center;
+}
+#comment-avatar > img {
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    margin: 5px;
+}
