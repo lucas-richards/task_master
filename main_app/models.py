@@ -80,7 +80,7 @@ class Task(models.Model):
         choices=PRIORITY,
         default=PRIORITY[0][0]
     )
-    
+
     def late(self):
         return self.due_date < date.today()
 
@@ -93,6 +93,7 @@ class Comment(models.Model):
     content = models.CharField(max_length=100)
     created_date = models.DateTimeField(auto_now_add=True)
     task = models.ForeignKey(Task, on_delete=models.CASCADE, null=True, blank=True)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, null=True, blank=True)
 
     
 
