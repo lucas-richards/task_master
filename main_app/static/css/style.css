@@ -29,3 +29,17 @@ footer.page-footer {
     vertical-align: middle; 
     margin-right: 10px;     
 }
+.left-brand-logo {
+    display: block;
+    padding: 0 0; 
+}
+
+.logo-img {
+    height: 40px; 
+    width: auto; 
+    transition: transform 0.3s ease; 
+}
+
+.left-brand-logo:hover .logo-img {
+    transform: scale(1.05); 
+}
