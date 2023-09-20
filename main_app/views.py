@@ -174,7 +174,7 @@ class CommentDelete(DeleteView):
         comment_model = self.model
         comment_query_array = comment_model.objects.filter(id=comment_pk)
         comment = comment_query_array[0]
-        breakpoint()
+        # breakpoint()
         project_id = comment.project.id  # type: ignore
         redirect_success_url = '/projects/' + str(project_id)
         return redirect_success_url

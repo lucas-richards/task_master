@@ -22,3 +22,39 @@ footer.page-footer {
 .small-text {
     font-size: 10px;
 }
+/* Custom Navy Blue */
+.navy {
+    background-color: #001F3F !important;
+    color: white !important;
+}
+.navy:hover, .navy:focus {
+    background-color: #001225 !important;
+}
+/* Custom Royal Blue */
+.royal {
+    background-color: #4169E1 !important;
+    color: white !important;
+}
+
+.royal:hover, .royal:focus {
+    background-color: #345bb0 !important;
+}
+/* Custom Black Button */
+.black-btn {
+    background-color: #000 !important;
+    color: white !important;
+}
+
+.black-btn:hover, .black-btn:focus {
+    background-color: #333333 !important;
+}
+/* Danger Button (Red for illustrative purposes) */
+.danger {
+    background-color: #FF0000 !important;
+    color: #FFF !important;
+}
+
+.danger:hover, .danger:focus {
+    background-color: #D80000 !important;
+}
+
