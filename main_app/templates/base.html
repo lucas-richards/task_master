@@ -1,4 +1,4 @@
- {% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,54 +7,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Task Master</title>
- 
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Source+Sans+3&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Source+Sans+3&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
+
 <body>
+
   <body>
     <div class="container">
-    <div class="sidebar">
-    <h2 class="sidebar-logo">Task Master</h2>
-     <ul class="sidebar-nav">
-      <li><a href="/admin">Admin</a></li>
-      <li><a href="{% url 'about' %}">About</a></li>
-       {% if user.is_authenticated %}
-        <li><a href="{% url 'projects_index' %}">Projects</a></li>
-        <li><a href="{% url 'team' %}">Team</a></li>
-        <li><a href="{% url 'profile_detail' user.id %}">Profile</a></li>
-        <li><a href="{% url 'logout' %}">Log Out</a></li>
-        {% else %}
-        <li><a href="{% url 'signup' %}">Sign Up</a></li>
-        <li><a href="{% url 'login' %}">Log In</a></li>
-        {% endif %}
-      </ul>
+      <div class="sidebar">
+        <h2 class="sidebar-logo">Task Master</h2>
+        <ul class="sidebar-nav">
+          <li><a href="/admin">Admin</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'projects_index' %}">Projects</a></li>
+          <li><a href="{% url 'team' %}">Team</a></li>
+          <li><a href="{% url 'profile_detail' user.id %}">Profile</a></li>
+          <li><a href="{% url 'logout' %}">Log Out</a></li>
+          {% else %}
+          <li><a href="{% url 'signup' %}">Sign Up</a></li>
+          <li><a href="{% url 'login' %}">Log In</a></li>
+          {% endif %}
+        </ul>
+      </div>
+      <main class="content-container">
+        {% block content %}
+        {% endblock %}
+      </main>
     </div>
-    <main class="content-container">
-      <section class="details-section">
-        <h3>Title: {{ object.title }}</h3>
-        <p>Description: {{ object.description }}</p>
-        <p>Status: {{ object.status }}</p>
-        <p>Due Date: {{ object.due_date }}</p>
-      </section>
-      {% block content %}
-      {% endblock %}
-    </main>
-  </div>
-  <footer class="page-footer">
-    <div class="center">
-     
-      All Rights Reserved, &copy; 2023 Task Master &nbsp;
-    </div>
-  </footer>
-  <script>
-    M.AutoInit();
-  </script>
+    <footer class="page-footer">
+      <div class="center">
+
+        All Rights Reserved, &copy; 2023 Task Master &nbsp;
+      </div>
+    </footer>
+    <script>
+      M.AutoInit();
+    </script>
   </body>
-  </html>
-  
+
+</html>
