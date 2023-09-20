@@ -19,7 +19,7 @@
 <!-- Modal Trigger -->
 <a class="waves-effect waves-light btn-small blue modal-trigger" href="#modal1">New Task</a>
 
-<table class="striped">
+<table class="highlight">
   <thead>
     <tr>
       <th>Priority</th>
@@ -32,7 +32,8 @@
   </thead>
   <tbody>
     {% for task in tasks %}
-    <tr>
+
+    <tr class="clickable-row" data-href="{% url 'tasks_detail' project.id task.id %}">
       <td>{{task.priority}}</td>
       <td>{{task.title}}</td>
       <td>{{task.description}}</td>
@@ -79,6 +80,16 @@
     defaultDate: new Date(),
     setDefaultDate: true,
     autoClose: true
+  });
+
+  // JavaScript to make table rows clickable
+  document.addEventListener('DOMContentLoaded', function () {
+    let rows = document.querySelectorAll('.clickable-row');
+    rows.forEach(function (row) {
+      row.addEventListener('click', function () {
+        window.location.href = row.getAttribute('data-href');
+      });
+    });
   });
 </script>
 
