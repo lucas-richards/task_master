@@ -22,35 +22,35 @@
 <table class="striped">
   <thead>
     <tr>
-      <th></th>
       <th>Priority</th>
       <th>Title</th>
       <th>Description</th>
       <th>Status</th>
-      <th>Owner</th>
+      <th>Assigned To</th>
       <th>Due Date</th>
     </tr>
   </thead>
   <tbody>
     {% for task in tasks %}
     <tr>
-      <th>
-        <a href="{% url 'tasks_detail' project.id task.id %}">
-          <i class="material-icons">launch</i></th>
-        </a>
-      <th>{{task.priority}}</th>
-      <th>{{task.title}}</th>
-      <th>{{task.description}}</th>
-      <th>{% if task.status == "P" %}
+      <td>{{task.priority}}</td>
+      <td>{{task.title}}</td>
+      <td>{{task.description}}</td>
+      <td>{% if task.status == "P" %}
         In Process
         {% elif task.status == "H" %}
         On Hold
         {% elif task.status == "C" %}
         Completed
-        {% endif %}</th>
-      <th>{{task.owner}}</th>
-      <th>{{task.due_date}}</th>
-
+        {% endif %}</td>
+      <td>{{task.assignee}}</td>
+      <td>
+        {% if task.late %}
+        <div class="red-text">{{task.due_date}}</div>
+        {% else %}
+        <div class="green-text">{{task.due_date}}</div>
+        {% endif %}
+      </td>
     </tr>
     {% endfor %}
   </tbody>
@@ -64,22 +64,22 @@
     <div class="modal-footer">
       <a href="#!" class="modal-close waves-effect waves-green btn-flat">X</a>
     </div>
-        <form action="{% url 'add_task' project.id %}" method="POST">
-          {% csrf_token %}
-          {{ task_form.as_p }}
-          <input type="submit" value="Save" class="btn-small black-text white">
-        </form>
+    <form action="{% url 'add_task' project.id %}" method="POST">
+      {% csrf_token %}
+      {{ task_form.as_p }}
+      <input type="submit" value="Save" class="btn-small black-text white">
+    </form>
   </div>
 </div>
 <script>
-     const dateEl = document.getElementById('id_due_date');
-        // M is Materialize's global variable
-        M.Datepicker.init(dateEl, {
-            format: 'yyyy-mm-dd',
-            defaultDate: new Date(),
-            setDefaultDate: true,
-            autoClose: true
-        });
+  const dateEl = document.getElementById('id_due_date');
+  // M is Materialize's global variable
+  M.Datepicker.init(dateEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  });
 </script>
 
 {% endblock %}
