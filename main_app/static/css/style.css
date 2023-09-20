@@ -149,9 +149,18 @@ html {
     text-decoration: underline;
 }
 
+#comment-avatar{
+    display: flex;
+    align-items: center;
+}
+#comment-avatar > img {
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    margin: 5px;
+}
 
 /* table higlight color */
-
 table.highlight>tbody>tr:hover {
     cursor: pointer;
     background-color: rgba(87, 79, 159, 0.173);
@@ -162,3 +171,4 @@ table.highlight>tbody>tr {
     color: black
         /* whatever color you want */
 }
+
