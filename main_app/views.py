@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Project, Profile, Task, Comment, User, Photo
+from .models import Project, Profile, Task, Comment, User
 from .forms import TaskForm, CommentForm
 # registration imports
 from django.contrib.auth import login
@@ -11,30 +11,20 @@ import boto3
 import os
 
 # HOME
-
-
 def home(request):
     return render(request, 'home.html')
 
-# ABOUT
-
-
-def about(request):
-    return render(request, 'about.html')
-
 # PROFILE
-
-
 class ProfileDetail(DetailView):
     model = Profile
     template_name = 'profile/detail.html'
 
 def profile_detail(request, prof_id):
     profile = Profile.objects.get(id=prof_id)
-    photo = Photo.objects.last()
+    # photo = Photo.objects.last()
     return render(request, 'profile/detail.html', {
         'profile': profile,
-        'photo': photo,
+        # 'photo': photo,
     })
 
 
@@ -65,7 +55,7 @@ class TaskList(ListView):
 
 def tasks_detail(request, proj_id, task_id):
   task = Task.objects.get(id=task_id)
-  photos = Photo.objects.filter()
+  profiles = Profile.objects.filter()
   project = Project.objects.get(id=proj_id)
   comment_form = CommentForm()
   comments = Comment.objects.filter(task=task_id)
@@ -74,7 +64,7 @@ def tasks_detail(request, proj_id, task_id):
     'task': task,
     'comments': comments,
     'comment_form': comment_form,
-    'photos': photos
+    'profiles': profiles
   })
 
 
@@ -236,7 +226,10 @@ def add_photo(request, prof_id):
             # build the full url string
             url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
             # we can assign to prof_id or prof (if you have a prof object)
-            Photo.objects.create(url=url, profile_id=prof_id)
+            profile = Profile.objects.get(id = prof_id)
+            profile.image_url = url
+            profile.save() 
+            # Photo.objects.create(url=url, profile_id=prof_id)
         except Exception as e:
             print('An error occurred uploading file to S3')
             print(e)

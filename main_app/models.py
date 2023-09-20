@@ -32,6 +32,7 @@ class Profile(models.Model):
       #add choices field option that creates drop down
       choices=DEPARTMENT,
       default=DEPARTMENT[0][0])
+    image_url = models.CharField(default='/static/profile-image.jpeg',max_length=200)
     
 
 class Project(models.Model):
@@ -84,9 +85,6 @@ class Task(models.Model):
     def late(self):
         return self.due_date < date.today()
 
-  
-
-
 # Comment
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -95,10 +93,3 @@ class Comment(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, null=True, blank=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE, null=True, blank=True)
 
-# Photo
-class Photo(models.Model):
-    url = models.CharField(max_length=200)
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"Photo for cat_id: {self.profile.user} @{self.url}"

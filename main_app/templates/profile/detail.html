@@ -6,11 +6,7 @@
     <hr> 
     <div class="row">
         <div class="col s6">
-            {% if photo %}
-            <img width="50%" src="{{ photo.url }}" class="circle responsive-img" alt="profile-image">
-            {% else %}
-            <img width="50%" src="/static/profile-image.jpeg" class="circle responsive-img" alt="profile-image">
-            {% endif %}
+            <img height="100" width="100" src="{{ profile.image_url }}" class="circle" alt="profile-image">
             <form action="{% url 'add_photo' profile.id %}" enctype="multipart/form-data" method="POST">
                 {% csrf_token %}
                 <input type="file" name="photo-file">

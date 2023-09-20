@@ -36,14 +36,13 @@
             <button type="submit" class="btn-small black-text white"> X </button>
           </form>
         </div>
-        <!-- {% for photo in photos %}
-          {% if comment.user.id == photo.profile_id and photo.url %}
-          <img width="50%" src="{{ photo.url }}" class="circle responsive-img" alt="profile-image">
-          
-          {% endif %} -->
-        <!-- {% endfor %}
-        <p>photo{{ photos.values }}</p> -->
-        <img width="5%" src="/static/profile-image.jpeg" class="circle responsive-img" alt="profile-image">
+        {% for profile in profiles %}
+          {% if comment.user.id == profile.id %}
+          <img width="5%" src="{{ profile.image_url }}" class="circle" alt="profile-image">
+          {% else %}
+          <img width="5%" src="/static/profile-image.jpeg" class="circle responsive-img" alt="profile-image">
+          {% endif %}
+        {% endfor %}
         <span class="center">{{comment.user}}</span>
         <span class="card-title">
            {{ comment.content }}
