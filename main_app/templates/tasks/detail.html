@@ -17,7 +17,7 @@
   Completed
   {% endif %}</h6>
 <p>Created by: {{ task.created_by}}</p>
-<p>To: {{ task.owner}}</p>
+<p>To: {{ task.assignee}}</p>
 <a href="{% url 'tasks_delete' task.id %}">
   <button type="button">Delete Task</button>
 </a>
@@ -40,9 +40,9 @@
           {% if comment.user.id == photo.profile_id and photo.url %}
           <img width="50%" src="{{ photo.url }}" class="circle responsive-img" alt="profile-image">
           
-          {% endif %}
-        {% endfor %} -->
-        <!-- <p>photo{{ photos.values.first.url }}</p> -->
+          {% endif %} -->
+        <!-- {% endfor %}
+        <p>photo{{ photos.values }}</p> -->
         <img width="5%" src="/static/profile-image.jpeg" class="circle responsive-img" alt="profile-image">
         <span class="center">{{comment.user}}</span>
         <span class="card-title">
@@ -60,6 +60,15 @@
         </form>
       </div>
     </div>
-    
+    <script>
+      const dateEl = document.getElementById('id_due_date');
+      // M is Materialize's global variable
+      M.Datepicker.init(dateEl, {
+          format: 'yyyy-mm-dd',
+          defaultDate: new Date(),
+          setDefaultDate: true,
+          autoClose: true
+      });
+      </script>
 
 {% endblock %}
