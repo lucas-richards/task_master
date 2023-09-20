@@ -1,4 +1,4 @@
- {% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,21 +7,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Task Master</title>
- 
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Source+Sans+3&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
+
 <body>
-<body>
-  <header class="navbar-fixed">
-    <nav class="blue darken-2">
-      <div class="nav-wrapper container">
-        <ul>
-          <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Task Master</a></li>
-        </ul>
-        <ul class="right">
+
+
+  <body>
+    <div class="container">
+      <div class="sidebar">
+        <h2 class="sidebar-logo">Task Master</h2>
+        <ul class="sidebar-nav">
+          <li><a href="/admin">Admin</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
           {% if user.is_authenticated %}
           <li><a href="{% url 'projects_index' %}">Projects</a></li>
           <li><a href="{% url 'team' %}">Team</a></li>
@@ -33,28 +39,20 @@
           {% endif %}
         </ul>
       </div>
-    </nav>
-  </header>
-  <main class="container">
-    {% block content %}
-    {% endblock %}
-  </main>
-
-  <footer class="page-footer blue dareken -3">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">Task Master</h5>
-          <p class="grey-text text-lighten-4">Best task management platform.</p>
-          <span class="small-text">All Rights Reserved, &copy; 2023 Task Master</span>
-        </div>
-        <div class="col l4 offset-l2 s12">
-          <h5 class="white-text">Quick Links</h5>
-       
+      <main class="content-container">
+        {% block content %}
+        {% endblock %}
+      </main>
     </div>
-  </footer>
-  <script>
-    M.AutoInit();
-  </script>
-</body>
+    <footer class="page-footer">
+      <div class="center">
+
+        All Rights Reserved, &copy; 2023 Task Master &nbsp;
+      </div>
+    </footer>
+    <script>
+      M.AutoInit();
+    </script>
+  </body>
+
 </html>

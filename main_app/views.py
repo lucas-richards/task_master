@@ -11,8 +11,8 @@ import boto3
 import os
 
 # HOME
-def home(request):
-    return render(request, 'home.html')
+def about(request):
+    return render(request, 'about.html')
 
 # PROFILE
 class ProfileDetail(DetailView):
@@ -178,9 +178,10 @@ class CommentDelete(DeleteView):
         comment_model = self.model
         comment_query_array = comment_model.objects.filter(id=comment_pk)
         comment = comment_query_array[0]
-        breakpoint()
         project_id = comment.project.id  # type: ignore
-        redirect_success_url = '/projects/' + str(project_id)
+        task_id = comment.task.id  # type: ignore
+        redirect_success_url = '/projects/' + \
+            str(project_id) + '/tasks/' + str(task_id)
         return redirect_success_url
 
 # REGISTRATION VIEWS

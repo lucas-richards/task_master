@@ -4,7 +4,7 @@ from . import views
 # name ='home' is a kwarg
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    path('', views.about, name='about'),
     # PROJECTS
     path('projects/', views.ProjectList.as_view(), name='projects_index'),
     path('projects/<int:proj_id>/', views.projects_detail, name='projects_detail'),
