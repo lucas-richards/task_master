@@ -36,7 +36,15 @@
             <button type="submit" class="btn-small black-text white"> X </button>
           </form>
         </div>
-        <p>{{comment.user}}</p>
+        <!-- {% for photo in photos %}
+          {% if comment.user.id == photo.profile_id and photo.url %}
+          <img width="50%" src="{{ photo.url }}" class="circle responsive-img" alt="profile-image">
+          
+          {% endif %}
+        {% endfor %} -->
+        <!-- <p>photo{{ photos.values.first.url }}</p> -->
+        <img width="5%" src="/static/profile-image.jpeg" class="circle responsive-img" alt="profile-image">
+        <span class="center">{{comment.user}}</span>
         <span class="card-title">
            {{ comment.content }}
         </span>
@@ -52,5 +60,6 @@
         </form>
       </div>
     </div>
+    
 
 {% endblock %}

@@ -90,8 +90,10 @@ class Comment(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     task = models.ForeignKey(Task, on_delete=models.CASCADE, null=True, blank=True)
 
-    
+# Photo
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
-    
-
-    
+    def __str__(self):
+        return f"Photo for cat_id: {self.profile.user} @{self.url}"
