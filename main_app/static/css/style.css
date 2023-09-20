@@ -22,6 +22,19 @@ footer.page-footer {
 .small-text {
     font-size: 10px;
 }
+
+/* buttons style */
+.button{
+    outline: none;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); 
+}
+
 /* Custom Navy Blue */
 .navy {
     background-color: #001F3F !important;
@@ -46,7 +59,7 @@ footer.page-footer {
 }
 
 .black-btn:hover, .black-btn:focus {
-    background-color: #333333 !important;
+    background-color: #515151 !important;
 }
 /* Danger Button (Red for illustrative purposes) */
 .danger {
@@ -58,3 +71,16 @@ footer.page-footer {
     background-color: #D80000 !important;
 }
 
+/* White Background Button */
+.grey-btn {
+    background-color: lightslategray; /* White color */
+    color: #000; /* Black text color */
+}
+
+.grey-btn:hover {
+    background-color: white; /* Slightly darker white/grey on hover */
+}
+
+.grey-btn:focus {
+    outline: none;
+}
