@@ -3,15 +3,19 @@ from .models import Task, Comment, User, Profile
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
+
 class TaskForm(ModelForm):
-  class Meta:
-    model = Task
-    fields = ['title', 'description','assignee', 'due_date']
+
+    class Meta:
+        model = Task
+        fields = ['title', 'description', 'assignee', 'due_date']
+
 
 class CommentForm(ModelForm):
-  class Meta:
-    model = Comment
-    fields = ['content']
+    class Meta:
+        model = Comment
+        fields = ['content']
+
 
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()
@@ -19,6 +23,7 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name','last_name','username','email']
+
 
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
@@ -36,3 +41,4 @@ class RegistrationForm(UserCreationForm):
                   'last_name',
                   'username',
                   'email']
+

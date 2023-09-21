@@ -16,7 +16,9 @@
             <h6>Username: {{ user.username }}</h6>
             <h6>Department: {{ user.profile.get_department_display }}</h6>
             <h6>Email: {{ user.email }}</h6>
-            
+            <h6>Joined: {{ user.date_joined }}</h6>
+            <br>
+
         </div>
     </div>
         <div class="row">
@@ -31,7 +33,7 @@
             <div class="col s6">
                 <div class="card-action">
                     <br><br>
-                    <a class="btn-small blue" href="{% url 'profile_update' user.profile.id %}">Edit Info</a>
+                    <a class="button royal" href="{% url 'profile_update' user.profile.id %}">Edit Info</a>
                 </div>
             </div>
         </div>

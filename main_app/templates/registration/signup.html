@@ -9,9 +9,11 @@
 
 <form method="POST" action="{% url 'signup' %}">
   {% csrf_token %}
+
   {{ r_form.as_p }}
   {{ p_form.as_p }}
-  <input type="submit" class="btn" value="Sign Up">
+  <input type="submit" class="button royal" value="Sign Up">
+
 </form>
 
 {% endblock %}

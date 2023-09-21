@@ -17,14 +17,16 @@ PRIORITY = (
 )
 
 DEPARTMENT = (
-    ('Qua','Quality/Testing'),
-    ('Dev','Developers'),
-    ('Des','Design'),
-    ('Arq','Arquitect'),
-    ('Man','Manager'),
+    ('Qua', 'Quality/Testing'),
+    ('Dev', 'Developers'),
+    ('Des', 'Design'),
+    ('Arq', 'Arquitect'),
+    ('Man', 'Manager'),
 )
 
 # Profile
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     department = models.CharField(
@@ -35,6 +37,9 @@ class Profile(models.Model):
     image_url = models.CharField(default='/static/profile-image.jpeg',max_length=200)
     
     
+    def is_manager(self):
+        return self.department == "Man"
+
 
 class Project(models.Model):
 
@@ -52,12 +57,9 @@ class Project(models.Model):
 
     def late(self):
         return self.due_date < date.today()
-    
+
     class Meta:
         ordering = ['due_date']
-    
-    
-
 
 
 class Task(models.Model):
@@ -65,11 +67,13 @@ class Task(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    assignee = models.ForeignKey(User, related_name='owned_tasks', on_delete=models.CASCADE)
+    assignee = models.ForeignKey(
+        User, related_name='owned_tasks', on_delete=models.CASCADE)
     three_months_future = datetime.now() + timedelta(days=90)
     due_date = models.DateField(default=three_months_future)
     created_date = models.DateTimeField(auto_now_add=True)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, null=True, blank=True)
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, null=True, blank=True)
     status = models.CharField(
         max_length=1,
         choices=STATUS,
@@ -83,7 +87,8 @@ class Task(models.Model):
 
     def late(self):
         return self.due_date < date.today()
-
+    def is_assignee(self, user):
+        return self.assignee == user
 
 
 
@@ -92,6 +97,7 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.CharField(max_length=100)
     created_date = models.DateTimeField(auto_now_add=True)
-    task = models.ForeignKey(Task, on_delete=models.CASCADE, null=True, blank=True)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, null=True, blank=True)
-
+    task = models.ForeignKey(
+        Task, on_delete=models.CASCADE, null=True, blank=True)
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, null=True, blank=True)
