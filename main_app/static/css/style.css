@@ -279,12 +279,8 @@ html {
     text-decoration: underline;
 }
 
-<<<<<<< HEAD
 /* COMMENTS */
-#comment-avatar{
-=======
 #comment-avatar {
->>>>>>> 2a7c895053b3157db1c041418bc8bd5b572b02fc
     display: flex;
     align-items: center;
 }
@@ -295,8 +291,6 @@ html {
     width: 25px;
     margin: 5px;
 }
-
-
 
 /* table higlight color */
 table.highlight>tbody>tr:hover {
@@ -314,9 +308,8 @@ svg {
     margin: 0px 12px 0px 12px
 }
 
-<<<<<<< HEAD=======th {
+th {
     text-decoration: underline;
     font-size: 24px;
 }
 
->>>>>>>f3b6040 (Fixed more styling, th style, sidebar)
