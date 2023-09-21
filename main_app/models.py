@@ -32,6 +32,7 @@ class Profile(models.Model):
       #add choices field option that creates drop down
       choices=DEPARTMENT,
       default=DEPARTMENT[0][0])
+    image_url = models.CharField(default='/static/profile-image.jpeg',max_length=200)
     
 
 class Project(models.Model):
@@ -84,7 +85,6 @@ class Task(models.Model):
     def late(self):
         return self.due_date < date.today()
 
-  
 
 
 # Comment
@@ -95,8 +95,3 @@ class Comment(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, null=True, blank=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE, null=True, blank=True)
 
-    
-
-    
-
-    
