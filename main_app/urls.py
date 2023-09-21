@@ -4,8 +4,7 @@ from . import views
 # name ='home' is a kwarg
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('about/', views.about, name='about'),
+    path('', views.about, name='about'),
     # PROJECTS
     path('projects/', views.ProjectList.as_view(), name='projects_index'),
     path('projects/<int:proj_id>/', views.projects_detail, name='projects_detail'),
@@ -23,8 +22,9 @@ urlpatterns = [
     # REGISTRATION
     path('accounts/signup/', views.signup, name='signup'),
     # PROFILE
-    path('profile/<int:pk>/', views.ProfileDetail.as_view(), name='profile_detail'),
+    path('profile/<int:prof_id>/', views.profile_detail, name='profile_detail'),
     path('profile/<int:pk>/update/', views.ProfileUpdate.as_view(), name='profile_update'),
+    path('profile/<int:prof_id>/add_photo/', views.add_photo, name='add_photo'),
     # TEAM
     path('team/', views.team, name='team'),
 

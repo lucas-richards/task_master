@@ -5,25 +5,27 @@ from .forms import TaskForm, CommentForm
 # registration imports
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+#imports for photo
+import uuid
+import boto3
+import os
 
 # HOME
-
-
-def home(request):
-    return render(request, 'home.html')
-
-# ABOUT
-
-
 def about(request):
     return render(request, 'about.html')
 
 # PROFILE
-
-
 class ProfileDetail(DetailView):
     model = Profile
     template_name = 'profile/detail.html'
+
+def profile_detail(request, prof_id):
+    profile = Profile.objects.get(id=prof_id)
+    # photo = Photo.objects.last()
+    return render(request, 'profile/detail.html', {
+        'profile': profile,
+        # 'photo': photo,
+    })
 
 
 class ProfileUpdate(UpdateView):
@@ -52,16 +54,18 @@ class TaskList(ListView):
 
 
 def tasks_detail(request, proj_id, task_id):
-    task = Task.objects.get(id=task_id)
-    project = Project.objects.get(id=proj_id)
-    comment_form = CommentForm()
-    comments = Comment.objects.filter(task=task_id)
-    return render(request, 'tasks/detail.html', {
-        'project': project,
-        'task': task,
-        'comments': comments,
-        'comment_form': comment_form
-    })
+  task = Task.objects.get(id=task_id)
+  profiles = Profile.objects.filter()
+  project = Project.objects.get(id=proj_id)
+  comment_form = CommentForm()
+  comments = Comment.objects.filter(task=task_id)
+  return render(request, 'tasks/detail.html', {
+    'project':project,
+    'task': task,
+    'comments': comments,
+    'comment_form': comment_form,
+    'profiles': profiles
+  })
 
 
 def add_task(request, proj_id):
@@ -110,15 +114,15 @@ class ProjectList(ListView):
 
 
 def projects_detail(request, proj_id):
-    project = Project.objects.get(id=proj_id)
-    tasks = Task.objects.filter(project=proj_id)
-    task_form = TaskForm()
-    return render(request, 'projects/detail.html', {
-        # include the cat and feeding_form in the context
-        'project': project,
-        'tasks': tasks,
-        'task_form': task_form
-    })
+  project = Project.objects.get(id=proj_id)
+  tasks = Task.objects.filter(project=proj_id)
+  task_form = TaskForm()
+  return render(request, 'projects/detail.html', {
+    'project': project, 
+    'tasks': tasks,
+    'task_form':task_form
+  })
+
 
 
 class ProjectCreate(CreateView):
@@ -174,9 +178,10 @@ class CommentDelete(DeleteView):
         comment_model = self.model
         comment_query_array = comment_model.objects.filter(id=comment_pk)
         comment = comment_query_array[0]
-        # breakpoint()
         project_id = comment.project.id  # type: ignore
-        redirect_success_url = '/projects/' + str(project_id)
+        task_id = comment.task.id  # type: ignore
+        redirect_success_url = '/projects/' + \
+            str(project_id) + '/tasks/' + str(task_id)
         return redirect_success_url
 
 # REGISTRATION VIEWS
@@ -200,3 +205,37 @@ def signup(request):
     form = UserCreationForm()
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
+
+############################ ADD PHOTO 
+
+def add_photo(request, prof_id):
+    # photo-file will be the "name" attribute on the <input type="file">
+    photo_file = request.FILES.get('photo-file', None)
+    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+
+    if photo_file:
+        s3 = boto3.client('s3',
+                          aws_access_key_id=AWS_ACCESS_KEY_ID,
+                          aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+        # need a unique "key" for S3 / needs image file extension too
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        # just in case something goes wrong
+        try:
+            bucket = os.environ['S3_BUCKET']
+            s3.upload_fileobj(photo_file, bucket, key)
+            # build the full url string
+            url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+            # we can assign to prof_id or prof (if you have a prof object)
+            profile = Profile.objects.get(id = prof_id)
+            profile.image_url = url
+            profile.save() 
+            # Photo.objects.create(url=url, profile_id=prof_id)
+        except Exception as e:
+            print('An error occurred uploading file to S3')
+            print(e)
+    return redirect('profile_detail',prof_id=prof_id)
+
+
+
+

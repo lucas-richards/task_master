@@ -19,10 +19,9 @@
 <!-- Modal Trigger -->
 <a class="button royal" href="#modal1">New Task</a>
 
-<table class="striped">
+<table class="highlight">
   <thead>
     <tr>
-      <th></th>
       <th>Priority</th>
       <th>Title</th>
       <th>Description</th>
@@ -33,12 +32,8 @@
   </thead>
   <tbody>
     {% for task in tasks %}
-    <tr>
-      <td>
-        <a href="{% url 'tasks_detail' project.id task.id %}">
-          <i class="material-icons">launch</i>
-        </a>
-      </td>
+
+    <tr class="clickable-row" data-href="{% url 'tasks_detail' project.id task.id %}">
       <td>{{task.priority}}</td>
       <td>{{task.title}}</td>
       <td>{{task.description}}</td>
@@ -78,14 +73,24 @@
   </div>
 </div>
 <script>
-     const dateEl = document.getElementById('id_due_date');
-        // M is Materialize's global variable
-        M.Datepicker.init(dateEl, {
-            format: 'yyyy-mm-dd',
-            defaultDate: new Date(),
-            setDefaultDate: true,
-            autoClose: true
-        });
+  const dateEl = document.getElementById('id_due_date');
+  // M is Materialize's global variable
+  M.Datepicker.init(dateEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  });
+
+  // JavaScript to make table rows clickable
+  document.addEventListener('DOMContentLoaded', function () {
+    let rows = document.querySelectorAll('.clickable-row');
+    rows.forEach(function (row) {
+      row.addEventListener('click', function () {
+        window.location.href = row.getAttribute('data-href');
+      });
+    });
+  });
 </script>
 
 {% endblock %}

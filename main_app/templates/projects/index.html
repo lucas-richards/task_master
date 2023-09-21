@@ -5,35 +5,18 @@
 <hr>
 <table class="highlight cursor-pointer">
     <thead>
-        <style>
-            table {
-                border-collapse: collapse;
-                width: 100%;
-            }
-
-            th,
-            td {
-                text-align: left;
-                padding: 8px;
-            }
-
-            tr:nth-child(odd) {
-                background-color: rgb(228, 216, 235);
-            }
-        </style>
         <tr>
             <th>Title</th>
             <th>Status</th>
             <th>Due Date</th>
-            <th>Project Schedule</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         {% for project in object_list %}
         <tr class="clickable-row" data-href="{% url 'projects_detail' project.id %}">
-            <!-- 1 -->
             <td>{{project.title}}</td>
-            <!-- 2 -->
+
             <td>{% if project.status == "P" %}
                 In Process
                 {% elif project.status == "H" %}
@@ -42,7 +25,7 @@
                 Completed
                 {% endif %}
             </td>
-            <!-- 3 -->
+
             <td>
                 {% if project.late %}
                 <div class="red-text">{{project.due_date}}</div>

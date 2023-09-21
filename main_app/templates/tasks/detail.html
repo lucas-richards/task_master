@@ -36,10 +36,16 @@
             <button type="submit" class="btn-small black-text white"> X </button>
           </form>
         </div>
-        <p>{{comment.user}}</p>
-        <span class="card-title">
-           {{ comment.content }}
-        </span>
+        <small class="left"> {{comment.created_date}}</small>
+        <div id="comment-avatar" class="container">
+          <img width="5%" src="{{ comment.user.profile.image_url }}"  alt="profile-image">
+          <p>{{comment.user}}</p>
+        </div>
+        
+        <div class="container">
+          
+          <h6>{{ comment.content }}</h6>
+        </div>
       </div>
     </div>
     {% endfor %}
@@ -53,6 +59,11 @@
       </div>
     </div>
     <script>
+
+  
+
+   
+
       const dateEl = document.getElementById('id_due_date');
       // M is Materialize's global variable
       M.Datepicker.init(dateEl, {
@@ -61,10 +72,7 @@
           setDefaultDate: true,
           autoClose: true
       });
-      const selectEl = document.getElementById('id_meal');
-        M.FormSelect.init(selectEl)
 
-   
       </script>
 
 {% endblock %}
