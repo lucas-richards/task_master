@@ -4,7 +4,7 @@
 <a href="{% url 'projects_detail' project.id %}">
   <button type="button" class="button black-btn">Back to Project</button>
 </a>
-<h1>Task Details</h1>
+<h1>Task: {{task.title}}</h1>
 <hr>
 <h4>Title: {{ task.title }}</h4>
 <h6><span class="bold">Description:</span> {{ task.description}}</h6>
@@ -37,46 +37,46 @@
 <hr>
 <h5>Comments</h5>
 </script>
-    {% for comment in comments %}
-    <div class="card">
-      <div class="card-content">
-        <div class="right">
-          <form action="{% url 'comments_delete' comment.id %}" method="POST">
-            {% csrf_token %}
-            <button type="submit" class="button royal"> X </button>
-          </form>
-        </div>
-        <small class="left"> {{comment.created_date}}</small>
-        <div id="comment-avatar" class="container">
-          <img width="5%" src="{{ comment.user.profile.image_url }}"  alt="profile-image">
-          <p>{{comment.user}}</p>
-        </div>
-        
-        <div class="container">
-          
-          <h6>{{ comment.content }}</h6>
-        </div>
-      </div>
+{% for comment in comments %}
+<div class="card">
+  <div class="card-content">
+    <div class="right">
+      <form action="{% url 'comments_delete' comment.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="button royal"> X </button>
+      </form>
     </div>
-    {% endfor %}
-    <div class="card">
-      <div class="card-content">
-        <form action="{% url 'add_comment' project.id task.id %}" method="POST">
-          {% csrf_token %}
-          {{ comment_form.as_p }}
-          <input type="submit" value="New Comment" class="button royal">
-        </form>
-      </div>
+    <small class="left"> {{comment.created_date}}</small>
+    <div id="comment-avatar" class="container">
+      <img width="5%" src="{{ comment.user.profile.image_url }}" alt="profile-image">
+      <p>{{comment.user}}</p>
     </div>
-    <script>
-     const dateEl = document.getElementById('id_due_date');
-      // M is Materialize's global variable
-      M.Datepicker.init(dateEl, {
-          format: 'yyyy-mm-dd',
-          defaultDate: new Date(),
-          setDefaultDate: true,
-          autoClose: true
-      });
-    </script>
+
+    <div class="container">
+
+      <h6>{{ comment.content }}</h6>
+    </div>
+  </div>
+</div>
+{% endfor %}
+<div class="card">
+  <div class="card-content">
+    <form action="{% url 'add_comment' project.id task.id %}" method="POST">
+      {% csrf_token %}
+      {{ comment_form.as_p }}
+      <input type="submit" value="New Comment" class="button royal">
+    </form>
+  </div>
+</div>
+<script>
+  const dateEl = document.getElementById('id_due_date');
+  // M is Materialize's global variable
+  M.Datepicker.init(dateEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  });
+</script>
 
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Project Details</h1>
+<h1>Project {{project.title}}</h1>
 
 <a href="{% url 'projects_delete' project.id %}">
   <button type="button" class="button danger">Delete Project</button>
