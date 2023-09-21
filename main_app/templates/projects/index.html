@@ -21,17 +21,17 @@
 
             <td>{% if project.status == "P" %}
                 <div class="status-wrapper">
-                    <div class="status green"></div>
+                    <div class="status yellow"></div>
                     <span>In Process</span>
                 </div>
                 {% elif project.status == "H" %}
                 <div class="status-wrapper">
-                    <div class="status yellow"></div>
+                    <div class="status red"></div>
                     <span>On Hold</span>
                 </div>
                 {% elif project.status == "C" %}
                 <div class="status-wrapper">
-                    <div class="status red"></div>
+                    <div class="status green"></div>
                     <span>Completed</span>
                 </div>
                 {% endif %}

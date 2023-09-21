@@ -9,6 +9,7 @@
 <h4>Title: {{ task.title }}</h4>
 <h6><span class="bold">Description:</span> {{ task.description}}</h6>
 <h6>Project: {{ project.title }}</h6>
+
 <h6 class="task_status"><span>Status:</span> {% if task.status == "P" %}
   <div class="status-wrapper">
     <div class="status yellow"></div>
