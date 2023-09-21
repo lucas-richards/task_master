@@ -9,13 +9,23 @@
 <h4>Title: {{ task.title }}</h4>
 <h6><span class="bold">Description:</span> {{ task.description}}</h6>
 <h6>Project: {{ project.title }}</h6>
-<h6>Status: {% if task.status == "P" %}
-  In Process
+<h6 class="task_status"><span>Status:</span> {% if task.status == "P" %}
+  <div class="status-wrapper">
+    <div class="status yellow"></div>
+    <span>In Process</span>
+  </div>
   {% elif task.status == "H" %}
-  On Hold
+  <div class="status-wrapper">
+    <div class="status red"></div>
+    <span>On Hold</span>
+  </div>
   {% elif task.status == "C" %}
-  Completed
-  {% endif %}</h6>
+  <div class="status-wrapper">
+    <div class="status green"></div>
+    <span>Completed</span>
+  </div>
+  {% endif %}
+</h6>
 <p>Created by: {{ task.created_by}}</p>
 <p>To: {{ task.assignee}}</p>
 <a href="{% url 'tasks_delete' task.id %}">
@@ -26,14 +36,14 @@
 </a>
 <hr>
 <h5>Comments</h5>
-
+</script>
     {% for comment in comments %}
     <div class="card">
       <div class="card-content">
         <div class="right">
           <form action="{% url 'comments_delete' comment.id %}" method="POST">
             {% csrf_token %}
-            <button type="submit" class="btn-small black-text white"> X </button>
+            <button type="submit" class="button royal"> X </button>
           </form>
         </div>
         <small class="left"> {{comment.created_date}}</small>
@@ -59,12 +69,7 @@
       </div>
     </div>
     <script>
-
-  
-
-   
-
-      const dateEl = document.getElementById('id_due_date');
+     const dateEl = document.getElementById('id_due_date');
       // M is Materialize's global variable
       M.Datepicker.init(dateEl, {
           format: 'yyyy-mm-dd',
@@ -72,7 +77,6 @@
           setDefaultDate: true,
           autoClose: true
       });
-
-      </script>
+    </script>
 
 {% endblock %}
