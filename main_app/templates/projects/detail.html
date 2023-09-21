@@ -19,10 +19,9 @@
 <!-- Modal Trigger -->
 <a class="button royal" href="#modal1">New Task</a>
 
-<table class="striped">
+<table class="highlight">
   <thead>
     <tr>
-      <th></th>
       <th>Priority</th>
       <th>Title</th>
       <th>Description</th>
@@ -33,28 +32,24 @@
   </thead>
   <tbody>
     {% for task in tasks %}
-    <tr>
-      <td>
-        <a href="{% url 'tasks_detail' project.id task.id %}">
-          <i class="material-icons">launch</i>
-        </a>
-      </td>
+
+    <tr class="clickable-row" data-href="{% url 'tasks_detail' project.id task.id %}">
       <td>{{task.priority}}</td>
       <td>{{task.title}}</td>
       <td>{{task.description}}</td>
       <td>{% if task.status == "P" %}
         <div class="status-wrapper">
-          <div class="status green"></div>
+          <div class="status yellow"></div>
           <span>In Process</span>
         </div>
         {% elif task.status == "H" %}
         <div class="status-wrapper">
-          <div class="status yellow"></div>
+          <div class="status red"></div>
           <span>On Hold</span>
         </div>
         {% elif task.status == "C" %}
         <div class="status-wrapper">
-          <div class="status red"></div>
+          <div class="status green"></div>
           <span>Completed</span>
         </div>
         {% endif %}
@@ -83,7 +78,7 @@
     <form action="{% url 'add_task' project.id %}" method="POST">
       {% csrf_token %}
       {{ task_form.as_p }}
-      <input type="submit" value="Save" class="btn-small black-text white">
+      <input type="submit" value="Save" class="button navy">
     </form>
   </div>
 </div>
@@ -95,6 +90,16 @@
     defaultDate: new Date(),
     setDefaultDate: true,
     autoClose: true
+  });
+
+  // JavaScript to make table rows clickable
+  document.addEventListener('DOMContentLoaded', function () {
+    let rows = document.querySelectorAll('.clickable-row');
+    rows.forEach(function (row) {
+      row.addEventListener('click', function () {
+        window.location.href = row.getAttribute('data-href');
+      });
+    });
   });
 </script>
 

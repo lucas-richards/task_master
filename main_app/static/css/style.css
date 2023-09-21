@@ -1,11 +1,10 @@
-
 body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    font: 'Montserrat', sans-serif;
 }
 
-/* the best style for footer */
 main {
     flex: 1 0 auto;
 }
@@ -17,8 +16,8 @@ footer.page-footer {
 
 .page-footer a {
     font-size: 25px;
-    
 }
+
 .small-text {
     font-size: 10px;
 }
@@ -119,3 +118,186 @@ footer.page-footer {
 .task_status > span{
     margin-right: 6px;
 }
+
+.logo-img {
+    height: 50px;   
+    width: 50%;    
+    vertical-align: middle; 
+    margin-right: 10px;     
+}
+.left-brand-logo {
+    display: block;
+    padding: 0 0; 
+}
+
+.logo-img {
+    height: 40px; 
+    width: auto; 
+    transition: transform 0.3s ease; 
+}
+
+.left-brand-logo:hover .logo-img {
+    transform: scale(1.05); 
+}
+
+ 
+body,
+div,
+h2,
+h3,
+p,
+ul,
+li,
+a
+ {
+
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+body,
+html {
+    height: 100;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    color: #333;
+    background-color: #F5F5F5;
+    width: 100%;
+
+}
+
+.wrapper {
+    flex: 1;
+    display: flex;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    padding: 0 !important;
+    width: 100%;
+    margin: 0 !important;
+}
+
+.sidebar {
+    background-color: rgb(1, 1, 34);
+    /* height: 100vh; */
+    width: 30%;
+    min-height: 100vh;
+
+    color: white;
+    padding: 10px;
+    overflow-y: auto;
+    padding-top: 0;
+    margin-top: 0
+}
+
+.sidebar-logo {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+
+.sidebar-logo-img {
+    display: block; 
+    max-width: 100%;   
+    margin: 20px auto;
+}
+
+
+.sidebar-nav {
+    list-style-type: none;
+    width: 100%;
+}
+
+.sidebar-nav li {
+    margin: 10px 0;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+
+.sidebar-nav li:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-nav a {
+    text-decoration: none;
+    padding: 5px 10px;
+    display: block;
+    font-size: 1.1em;
+}
+
+.content-container {
+    flex: 1;
+    padding: 1em;
+    background-color: #F5F5F5;
+    overflow: auto;
+
+}
+
+.details-section h3 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: navy;
+}
+
+.details-section p {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.page-footer {
+    background-color: darkblue;
+    text-align: center;
+    font-size: 0.9em;
+    height: 50px;
+    margin: auto 0;
+    /* width: 100%; */
+    /* position: absolute;
+    bottom: 0 */
+
+}
+
+.page-footer div {
+
+    margin-top: 10px;
+}
+
+.page-footer a {
+    color: navy;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.page-footer a:hover {
+    text-decoration: underline;
+}
+
+#comment-avatar{
+    display: flex;
+    align-items: center;
+}
+#comment-avatar > img {
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    margin: 5px;
+}
+
+/* table higlight color */
+table.highlight>tbody>tr:hover {
+    cursor: pointer;
+    background-color: rgba(87, 79, 159, 0.173);
+    /* whatever color you want */
+}
+
+table.highlight>tbody>tr {
+    color: black
+        /* whatever color you want */
+}
+

@@ -16,7 +16,7 @@
     </thead>
     <tbody>
         {% for task in object_list %}
-        <tr>
+        <tr class="clickable-row" data-href="{% url 'tasks_detail' project.id task.id%}">
             <th>1</th>
             <td>
                 <a href="{% url 'tasks_detail' task.id %}">
@@ -33,4 +33,16 @@
 <a href="{% url 'tasks_create' %}">
     <button type="button" class="button black-btn">Create Task</button>
 </a>
+
+<script>
+    // JavaScript to make table rows clickable
+    document.addEventListener('DOMContentLoaded', function () {
+        let rows = document.querySelectorAll('.clickable-row');
+        rows.forEach(function (row) {
+            row.addEventListener('click', function () {
+                window.location.href = row.getAttribute('data-href');
+            });
+        });
+    });
+</script>
 {% endblock %}
