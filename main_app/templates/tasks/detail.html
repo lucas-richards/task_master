@@ -9,13 +9,23 @@
 <h4>Title: {{ task.title }}</h4>
 <h6><span class="bold">Description:</span> {{ task.description}}</h6>
 <h6>Project: {{ project.title }}</h6>
-<h6>Status: {% if task.status == "P" %}
-  In Process
+<h6 class="task_status"><span>Status:</span> {% if task.status == "P" %}
+  <div class="status-wrapper">
+    <div class="status green"></div>
+    <span>In Process</span>
+  </div>
   {% elif task.status == "H" %}
-  On Hold
+  <div class="status-wrapper">
+    <div class="status yellow"></div>
+    <span>On Hold</span>
+  </div>
   {% elif task.status == "C" %}
-  Completed
-  {% endif %}</h6>
+  <div class="status-wrapper">
+    <div class="status red"></div>
+    <span>Completed</span>
+  </div>
+  {% endif %}
+</h6>
 <p>Created by: {{ task.created_by}}</p>
 <p>To: {{ task.assignee}}</p>
 <a href="{% url 'tasks_delete' task.id %}">
@@ -27,44 +37,44 @@
 <hr>
 <h5>Comments</h5>
 
-    {% for comment in comments %}
-    <div class="card">
-      <div class="card-content">
-        <div class="right">
-          <form action="{% url 'comments_delete' comment.id %}" method="POST">
-            {% csrf_token %}
-            <button type="submit" class="btn-small black-text white"> X </button>
-          </form>
-        </div>
-        <p>{{comment.user}}</p>
-        <span class="card-title">
-           {{ comment.content }}
-        </span>
-      </div>
+{% for comment in comments %}
+<div class="card">
+  <div class="card-content">
+    <div class="right">
+      <form action="{% url 'comments_delete' comment.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn-small black-text white"> X </button>
+      </form>
     </div>
-    {% endfor %}
-    <div class="card">
-      <div class="card-content">
-        <form action="{% url 'add_comment' project.id task.id %}" method="POST">
-          {% csrf_token %}
-          {{ comment_form.as_p }}
-          <input type="submit" value="New Comment" class="button royal">
-        </form>
-      </div>
-    </div>
-    <script>
-      const dateEl = document.getElementById('id_due_date');
-      // M is Materialize's global variable
-      M.Datepicker.init(dateEl, {
-          format: 'yyyy-mm-dd',
-          defaultDate: new Date(),
-          setDefaultDate: true,
-          autoClose: true
-      });
-      const selectEl = document.getElementById('id_meal');
-        M.FormSelect.init(selectEl)
+    <p>{{comment.user}}</p>
+    <span class="card-title">
+      {{ comment.content }}
+    </span>
+  </div>
+</div>
+{% endfor %}
+<div class="card">
+  <div class="card-content">
+    <form action="{% url 'add_comment' project.id task.id %}" method="POST">
+      {% csrf_token %}
+      {{ comment_form.as_p }}
+      <input type="submit" value="New Comment" class="button royal">
+    </form>
+  </div>
+</div>
+<script>
+  const dateEl = document.getElementById('id_due_date');
+  // M is Materialize's global variable
+  M.Datepicker.init(dateEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  });
+  const selectEl = document.getElementById('id_meal');
+  M.FormSelect.init(selectEl)
 
-   
-      </script>
+
+</script>
 
 {% endblock %}

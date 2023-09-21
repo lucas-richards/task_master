@@ -35,11 +35,20 @@
             <td>{{project.title}}</td>
             <!-- 2 -->
             <td>{% if project.status == "P" %}
-                In Process
+                <div class="status-wrapper">
+                    <div class="status green"></div>
+                    <span>In Process</span>
+                </div>
                 {% elif project.status == "H" %}
-                On Hold
+                <div class="status-wrapper">
+                    <div class="status yellow"></div>
+                    <span>On Hold</span>
+                </div>
                 {% elif project.status == "C" %}
-                Completed
+                <div class="status-wrapper">
+                    <div class="status red"></div>
+                    <span>Completed</span>
+                </div>
                 {% endif %}
             </td>
             <!-- 3 -->

@@ -84,3 +84,38 @@ footer.page-footer {
 .grey-btn:focus {
     outline: none;
 }
+
+/* status color styles */
+
+.status-wrapper, .task_status{
+    display: flex;
+    align-items: center;
+}
+
+.status{
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.status.green{
+    background-color: green;
+}
+
+.status.yellow{
+    background-color: yellow;
+}
+
+.status.red{
+    background-color: red;
+}
+
+.status.brown{
+    background-color: brown;
+}
+
+.task_status > span{
+    margin-right: 6px;
+}
