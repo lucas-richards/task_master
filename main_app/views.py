@@ -1,23 +1,29 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Project, Profile, Task, Comment, User
+from .models import Project, Profile, Task, Comment, User, DEPARTMENT
 from .forms import TaskForm, CommentForm
 # registration imports
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-#imports for photo
+# imports for photo
 import uuid
 import boto3
 import os
+import json
 
 # HOME
+
+
 def about(request):
     return render(request, 'about.html')
 
 # PROFILE
+
+
 class ProfileDetail(DetailView):
     model = Profile
     template_name = 'profile/detail.html'
+
 
 def profile_detail(request, prof_id):
     profile = Profile.objects.get(id=prof_id)
@@ -54,18 +60,18 @@ class TaskList(ListView):
 
 
 def tasks_detail(request, proj_id, task_id):
-  task = Task.objects.get(id=task_id)
-  profiles = Profile.objects.filter()
-  project = Project.objects.get(id=proj_id)
-  comment_form = CommentForm()
-  comments = Comment.objects.filter(task=task_id)
-  return render(request, 'tasks/detail.html', {
-    'project':project,
-    'task': task,
-    'comments': comments,
-    'comment_form': comment_form,
-    'profiles': profiles
-  })
+    task = Task.objects.get(id=task_id)
+    profiles = Profile.objects.filter()
+    project = Project.objects.get(id=proj_id)
+    comment_form = CommentForm()
+    comments = Comment.objects.filter(task=task_id)
+    return render(request, 'tasks/detail.html', {
+        'project': project,
+        'task': task,
+        'comments': comments,
+        'comment_form': comment_form,
+        'profiles': profiles
+    })
 
 
 def add_task(request, proj_id):
@@ -86,11 +92,37 @@ def add_task(request, proj_id):
     return render(request, 'main_app/form.html', context)
 
 
-class TaskUpdate(UpdateView):
-    model = Task
-    fields = ['title', 'description', 'status']
-    template_name = 'main_app/form.html'
-    success_url = '/projects/'
+def edit_task(request, pk):
+    error_message = ''
+    task = Task.objects.get(id=pk)
+    profile = Profile.objects.get(user=request.user)
+    cannot_edit_task = not (
+        profile.is_manager() or task.is_assignee(request.user))
+
+    # when POST request, save information
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=task)
+
+        if cannot_edit_task:
+            error_message = "Cannot update task"
+        elif form.is_valid():
+            edited_task = form.save(commit=False)
+            edited_task.save()
+            return redirect('projects_detail', proj_id=str(task.project.id))
+        else:
+            error_message = 'Invalid task update'
+
+    # if only GET, then just render form
+
+    context = {
+        'task': task,
+        'form': TaskForm(instance=task),
+        'profile': profile,
+        'user': request.user,
+        'cannot_edit_task': cannot_edit_task,
+        'error_message': error_message
+    }
+    return render(request, 'tasks/edit.html', context)
 
 
 class TaskDelete(DeleteView):
@@ -107,22 +139,30 @@ class TaskDelete(DeleteView):
         return redirect_success_url
 
 
-# PROJECT VIEWS
-class ProjectList(ListView):
-    model = Project
-    template_name = 'projects/index.html'
+# # PROJECT VIEWS
+# class ProjectList(ListView):
+#     model = Project
+#     template_name = 'projects/index.html'
+
+
+def projects_index(request):
+    projects = Project.objects.filter()
+    profile = Profile.objects.get(user=request.user)
+    return render(request, 'projects/index.html', {
+        'projects': projects,
+        "profile": profile
+    })
 
 
 def projects_detail(request, proj_id):
-  project = Project.objects.get(id=proj_id)
-  tasks = Task.objects.filter(project=proj_id)
-  task_form = TaskForm()
-  return render(request, 'projects/detail.html', {
-    'project': project, 
-    'tasks': tasks,
-    'task_form':task_form
-  })
-
+    project = Project.objects.get(id=proj_id)
+    tasks = Task.objects.filter(project=proj_id)
+    task_form = TaskForm()
+    return render(request, 'projects/detail.html', {
+        'project': project,
+        'tasks': tasks,
+        'task_form': task_form
+    })
 
 
 class ProjectCreate(CreateView):
@@ -206,7 +246,8 @@ def signup(request):
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
 
-############################ ADD PHOTO 
+# ADD PHOTO
+
 
 def add_photo(request, prof_id):
     # photo-file will be the "name" attribute on the <input type="file">
@@ -219,7 +260,8 @@ def add_photo(request, prof_id):
                           aws_access_key_id=AWS_ACCESS_KEY_ID,
                           aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
         # need a unique "key" for S3 / needs image file extension too
-        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        key = uuid.uuid4().hex[:6] + \
+            photo_file.name[photo_file.name.rfind('.'):]
         # just in case something goes wrong
         try:
             bucket = os.environ['S3_BUCKET']
@@ -227,15 +269,11 @@ def add_photo(request, prof_id):
             # build the full url string
             url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
             # we can assign to prof_id or prof (if you have a prof object)
-            profile = Profile.objects.get(id = prof_id)
+            profile = Profile.objects.get(id=prof_id)
             profile.image_url = url
-            profile.save() 
+            profile.save()
             # Photo.objects.create(url=url, profile_id=prof_id)
         except Exception as e:
             print('An error occurred uploading file to S3')
             print(e)
-    return redirect('profile_detail',prof_id=prof_id)
-
-
-
-
+    return redirect('profile_detail', prof_id=prof_id)
