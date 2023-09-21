@@ -22,6 +22,125 @@ footer.page-footer {
     font-size: 10px;
 }
 
+/* buttons style */
+.button{
+    outline: none;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 5px 5px 0 rgba(0,0,0,0.4), 0 6px 4px -2px rgba(0,0,0,0.4), 0 5px 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* Custom Navy Blue */
+.navy {
+    background-color: #001F3F !important;
+    color: white !important;
+}
+.navy:hover, .navy:focus {
+    background-color: #001225 !important;
+}
+/* Custom Royal Blue */
+.royal {
+    background-color: #4169E1 !important;
+    color: white !important;
+}
+
+.royal:hover, .royal:focus {
+    background-color: #345bb0 !important;
+}
+/* Custom Black Button */
+.black-btn {
+    background-color: #000 !important;
+    color: white !important;
+}
+
+.black-btn:hover, .black-btn:focus {
+    background-color: #515151 !important;
+}
+/* Danger Button (Red for illustrative purposes) */
+.danger {
+    background-color: #FF0000 !important;
+    color: #FFF !important;
+}
+
+.danger:hover, .danger:focus {
+    background-color: #D80000 !important;
+}
+
+/* White Background Button */
+.grey-btn {
+    background-color: lightslategray; /* White color */
+    color: #000; /* Black text color */
+}
+
+.grey-btn:hover {
+    background-color: white; /* Slightly darker white/grey on hover */
+}
+
+.grey-btn:focus {
+    outline: none;
+}
+
+/* status color styles */
+
+.status-wrapper, .task_status{
+    display: flex;
+    align-items: center;
+}
+
+.status{
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.status.green{
+    background-color: green;
+}
+
+.status.yellow{
+    background-color: yellow;
+}
+
+.status.red{
+    background-color: red;
+}
+
+.status.brown{
+    background-color: brown;
+}
+
+.task_status > span{
+    margin-right: 6px;
+}
+
+.logo-img {
+    height: 50px;   
+    width: 50%;    
+    vertical-align: middle; 
+    margin-right: 10px;     
+}
+.left-brand-logo {
+    display: block;
+    padding: 0 0; 
+}
+
+.logo-img {
+    height: 40px; 
+    width: auto; 
+    transition: transform 0.3s ease; 
+}
+
+.left-brand-logo:hover .logo-img {
+    transform: scale(1.05); 
+}
+
+ 
 body,
 div,
 h2,
@@ -29,7 +148,9 @@ h3,
 p,
 ul,
 li,
-a {
+a
+ {
+
     margin: 0;
     padding: 0;
     border: 0;
@@ -81,6 +202,14 @@ html {
     margin-bottom: 20px;
     font-size: 1.5em;
 }
+
+
+.sidebar-logo-img {
+    display: block; 
+    max-width: 100%;   
+    margin: 20px auto;
+}
+
 
 .sidebar-nav {
     list-style-type: none;

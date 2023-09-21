@@ -4,10 +4,10 @@
 <h1>Project Details</h1>
 
 <a href="{% url 'projects_delete' project.id %}">
-  <button type="button">Delete Project</button>
+  <button type="button" class="button danger">Delete Project</button>
 </a>
 <a href="{% url 'projects_update' project.id %}">
-  <button type="button">Update Project</button>
+  <button type="submit" class="button grey-btn">Update Project</button>
 </a>
 
 <hr>
@@ -17,7 +17,7 @@
 <hr>
 <h5>Tasks</h5>
 <!-- Modal Trigger -->
-<a class="waves-effect waves-light btn-small blue modal-trigger" href="#modal1">New Task</a>
+<a class="button royal" href="#modal1">New Task</a>
 
 <table class="highlight">
   <thead>
@@ -38,12 +38,22 @@
       <td>{{task.title}}</td>
       <td>{{task.description}}</td>
       <td>{% if task.status == "P" %}
-        In Process
+        <div class="status-wrapper">
+          <div class="status yellow"></div>
+          <span>In Process</span>
+        </div>
         {% elif task.status == "H" %}
-        On Hold
+        <div class="status-wrapper">
+          <div class="status red"></div>
+          <span>On Hold</span>
+        </div>
         {% elif task.status == "C" %}
-        Completed
-        {% endif %}</td>
+        <div class="status-wrapper">
+          <div class="status green"></div>
+          <span>Completed</span>
+        </div>
+        {% endif %}
+      </td>
       <td>{{task.assignee}}</td>
       <td>
         {% if task.late %}
@@ -68,7 +78,7 @@
     <form action="{% url 'add_task' project.id %}" method="POST">
       {% csrf_token %}
       {{ task_form.as_p }}
-      <input type="submit" value="Save" class="btn-small black-text white">
+      <input type="submit" value="Save" class="button navy">
     </form>
   </div>
 </div>
