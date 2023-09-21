@@ -16,15 +16,7 @@
         {% for project in object_list %}
         <tr class="clickable-row" data-href="{% url 'projects_detail' project.id %}">
             <td>{{project.title}}</td>
-
-            <td>{% if project.status == "P" %}
-                In Process
-                {% elif project.status == "H" %}
-                On Hold
-                {% elif project.status == "C" %}
-                Completed
-                {% endif %}
-            </td>
+            <td>{{ project.get_status_display }}</td>
 
             <td>
                 {% if project.late %}

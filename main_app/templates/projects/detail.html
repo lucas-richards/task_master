@@ -37,13 +37,7 @@
       <td>{{task.priority}}</td>
       <td>{{task.title}}</td>
       <td>{{task.description}}</td>
-      <td>{% if task.status == "P" %}
-        In Process
-        {% elif task.status == "H" %}
-        On Hold
-        {% elif task.status == "C" %}
-        Completed
-        {% endif %}</td>
+      <td>{{task.get_status_display}}</td>
       <td>{{task.assignee}}</td>
       <td>
         {% if task.late %}

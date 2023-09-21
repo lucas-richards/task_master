@@ -34,6 +34,7 @@ class Profile(models.Model):
       default=DEPARTMENT[0][0])
     image_url = models.CharField(default='/static/profile-image.jpeg',max_length=200)
     
+    
 
 class Project(models.Model):
 
@@ -51,8 +52,6 @@ class Project(models.Model):
 
     def late(self):
         return self.due_date < date.today()
-    
-    
     
     class Meta:
         ordering = ['due_date']
@@ -84,6 +83,7 @@ class Task(models.Model):
 
     def late(self):
         return self.due_date < date.today()
+
 
 
 

@@ -4,27 +4,39 @@
 
     <h1>My profile</h1>
     <hr> 
+    <h6>Joined: {{ user.date_joined }}</h6>
     <div class="row">
         <div class="col s6">
-            <img height="100" width="100" src="{{ profile.image_url }}" class="circle" alt="profile-image">
-            <form action="{% url 'add_photo' profile.id %}" enctype="multipart/form-data" method="POST">
-                {% csrf_token %}
-                <input type="file" name="photo-file">
-                <br><br>
-                <button type="submit" class="btn-small blue">Upload Photo</button>
-            </form>
+            <img  width="150" src="{{ profile.image_url }}" class="circle" alt="profile-image">
+            
         </div>
         <div class="col s6">
+            <h6>First name: {{ user.first_name }}</h6>
+            <h6>Last name: {{ user.last_name }}</h6>
             <h6>Username: {{ user.username }}</h6>
-            <h6>Department: {{ user.profile.department }}</h6>
+            <h6>Department: {{ user.profile.get_department_display }}</h6>
             <h6>Email: {{ user.email }}</h6>
-            <h6>Joined: {{ user.date_joined }}</h6>
-            <br>
-            <div class="card-action">
-                <a class="btn-small blue" href="{% url 'profile_update' user.profile.id %}">Edit</a>
-            </div>
+            
         </div>
     </div>
+        <div class="row">
+            <div class="col s6">
+                <form action="{% url 'add_photo' profile.id %}" enctype="multipart/form-data" method="POST">
+                    {% csrf_token %}
+                    <input type="file" name="photo-file">
+                    <br><br>
+                    <button type="submit" class="btn-small blue">Upload Photo</button>
+                </form>
+            </div>
+            <div class="col s6">
+                <div class="card-action">
+                    <br><br>
+                    <a class="btn-small blue" href="{% url 'profile_update' user.profile.id %}">Edit Info</a>
+                </div>
+            </div>
+        </div>
+    
+    
 
     
     

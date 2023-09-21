@@ -149,6 +149,7 @@ html {
     text-decoration: underline;
 }
 
+/* COMMENTS */
 #comment-avatar{
     display: flex;
     align-items: center;
@@ -159,6 +160,8 @@ html {
     width: 25px;
     margin: 5px;
 }
+
+
 
 /* table higlight color */
 table.highlight>tbody>tr:hover {

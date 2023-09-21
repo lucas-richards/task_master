@@ -9,14 +9,8 @@
 <h4>Title: {{ task.title }}</h4>
 <h6><span class="bold">Description:</span> {{ task.description}}</h6>
 <h6>Project: {{ project.title }}</h6>
-<h6>Status: {% if task.status == "P" %}
-  In Process
-  {% elif task.status == "H" %}
-  On Hold
-  {% elif task.status == "C" %}
-  Completed
-  {% endif %}</h6>
-<p>Created by: {{ task.created_by}}</p>
+<h6>Status: {{ project.get_status_display }}</h6>
+<p>Created by: {{ task.created_by }}</p>
 <p>To: {{ task.assignee}}</p>
 <a href="{% url 'tasks_delete' task.id %}">
   <button type="button">Delete Task</button>

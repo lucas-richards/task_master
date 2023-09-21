@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Project, Profile, Task, Comment, User
-from .forms import TaskForm, CommentForm
+from .forms import TaskForm, CommentForm, UserUpdateForm, ProfileUpdateForm, RegistrationForm
 # registration imports
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -21,18 +21,32 @@ class ProfileDetail(DetailView):
 
 def profile_detail(request, prof_id):
     profile = Profile.objects.get(id=prof_id)
-    # photo = Photo.objects.last()
     return render(request, 'profile/detail.html', {
         'profile': profile,
-        # 'photo': photo,
     })
 
+def profile_update(request, prof_id):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance = request.user)
+        p_form = ProfileUpdateForm( request.POST,
+                                    request.FILES,
+                                    instance= request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            # messages.success(request,f'Your account has been updated!')
+            return redirect('profile_detail', prof_id=prof_id)
+    else:
+        u_form = UserUpdateForm(instance = request.user)
+        p_form = ProfileUpdateForm( instance= request.user.profile)
 
-class ProfileUpdate(UpdateView):
-    model = Profile
-    fields = ['department']
-    template_name = 'main_app/form.html'
-    success_url = '/'
+    context = {
+        'u_form':u_form,
+        'p_form':p_form,
+        'prof_id':prof_id
+    }
+    return render(request, 'profile/form.html', context)
+    
 
 # REGISTRATION VIEWS
 
@@ -192,18 +206,28 @@ def signup(request):
     if request.method == 'POST':
         # This is how to create a 'user' form object
         # that includes the data from the browser
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
+        print('this is the request.POST', request.POST)
+        # form = UserCreationForm(request.POST)
+        r_form = RegistrationForm(request.POST)
+        p_form = ProfileUpdateForm(request.POST)
+        if r_form.is_valid() and p_form.is_valid():
             # This will add the user to the database
-            user = form.save()
+            user = r_form.save()
+            profile = p_form.save(commit=False)  # Create a profile without saving it immediately
+            profile.user = user  # Associate the profile with the user
+            profile.save()
             # This is how we log a user in via code
             login(request, user)
             return redirect('projects_index')
         else:
             error_message = 'Invalid sign up - try again'
     # A bad POST or a GET request, so render signup.html with an empty form
-    form = UserCreationForm()
-    context = {'form': form, 'error_message': error_message}
+    r_form = RegistrationForm()
+    p_form = ProfileUpdateForm()
+    context = {
+        'r_form': r_form, 
+        'p_form': p_form, 
+        'error_message': error_message}
     return render(request, 'registration/signup.html', context)
 
 ############################ ADD PHOTO 

@@ -23,7 +23,7 @@ urlpatterns = [
     path('accounts/signup/', views.signup, name='signup'),
     # PROFILE
     path('profile/<int:prof_id>/', views.profile_detail, name='profile_detail'),
-    path('profile/<int:pk>/update/', views.ProfileUpdate.as_view(), name='profile_update'),
+    path('profile/<int:prof_id>/update/', views.profile_update, name='profile_update'),
     path('profile/<int:prof_id>/add_photo/', views.add_photo, name='add_photo'),
     # TEAM
     path('team/', views.team, name='team'),
