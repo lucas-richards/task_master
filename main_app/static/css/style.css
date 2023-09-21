@@ -33,6 +33,17 @@ footer.page-footer {
     cursor: pointer;
     box-shadow: 0 5px 5px 0 rgba(0,0,0,0.4), 0 6px 4px -2px rgba(0,0,0,0.4), 0 5px 10px 0 rgba(0, 0, 0, 0.5);
 }
+h1 {
+text-align: center;
+}
+
+
+
+
+
+
+
+
 
 /* Custom Navy Blue */
 .navy {
@@ -306,10 +317,7 @@ table.highlight>tbody>tr {
 svg {
     margin: 0px 12px 0px 12px
 }
-
-<<<<<<< HEAD=======th {
+th {
     text-decoration: underline;
     font-size: 24px;
 }
-
->>>>>>>f3b6040 (Fixed more styling, th style, sidebar)
