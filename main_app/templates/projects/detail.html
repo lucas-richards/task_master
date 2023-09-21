@@ -37,6 +37,7 @@
       <td>{{task.priority}}</td>
       <td>{{task.title}}</td>
       <td>{{task.description}}</td>
+
       <td>{% if task.status == "P" %}
         <div class="status-wrapper">
           <div class="status yellow"></div>
@@ -54,6 +55,7 @@
         </div>
         {% endif %}
       </td>
+
       <td>{{task.assignee}}</td>
       <td>
         {% if task.late %}
