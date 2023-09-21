@@ -9,7 +9,9 @@
             <th>Title</th>
             <th>Status</th>
             <th>Due Date</th>
+            {% if profile.is_manager %}
             <th>Actions</th>
+            {% endif %}
         </tr>
     </thead>
     <tbody>
@@ -42,7 +44,7 @@
                 <div class="green-text">{{project.due_date}}</div>
                 {% endif %}
             </td>
-
+            {% if profile.is_manager %}
             <td>
                 <a href="{% url 'projects_update' project.id %}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="black"
@@ -63,6 +65,7 @@
                     </a>
                 </a>
             </td>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>

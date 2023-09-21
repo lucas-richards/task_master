@@ -28,22 +28,25 @@
 </h6>
 <p>Created by: {{ task.created_by}}</p>
 <p>To: {{ task.assignee}}</p>
+{% if not cannot_edit_task %}
 <a href="{% url 'tasks_delete' task.id %}">
   <button type="button" class="button danger">Delete Task</button>
 </a>
 <a href="{% url 'tasks_update' task.id %}">
   <button type="button" class="button grey-btn">Update Task</button>
 </a>
+{% endif %}
 <hr>
 <h5>Comments</h5>
-</script>
 {% for comment in comments %}
 <div class="card">
   <div class="card-content">
     <div class="right">
       <form action="{% url 'comments_delete' comment.id %}" method="POST">
         {% csrf_token %}
+        {% if profile.is_manager %}
         <button type="submit" class="button royal"> X </button>
+        {% endif %}
       </form>
     </div>
     <small class="left"> {{comment.created_date}}</small>

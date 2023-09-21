@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Project {{project.title}}</h1>
-
+<h1>Project:<span class="teal-text">{{project.title}}</span></h1>
+{% if profile.is_manager %}
 <a href="{% url 'projects_delete' project.id %}">
   <button type="button" class="button danger">Delete Project</button>
 </a>
 <a href="{% url 'projects_update' project.id %}">
   <button type="submit" class="button grey-btn">Update Project</button>
 </a>
+{% endif %}
 
 <hr>
 
