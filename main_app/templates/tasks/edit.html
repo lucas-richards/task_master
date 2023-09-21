@@ -1,21 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% if object %}
-<h1>Edit <span class="teal-text">{{ object.name }}</span></h1>
-{% else %}
-<h1>Add {{class_name}}</h1>
-{% endif %}
+<h1>Edit <span class="teal-text">{{ task.title }}</span></h1>
 <form action="" method="POST">
     {% csrf_token %}
     {{ form.as_table }}
-    <input type="submit" value="Save" class="btn">
+    {% if error_message %}
+    <div style="color:red;">{{ error_message }}</div>
+    {% endif %}
+    <input {% if cannot_edit_task %} disabled {% endif %} type="submit" value="Save" class="btn" />
 </form>
+
+
 <script>
     const dateEl = document.getElementById('id_due_date');
     // M is Materialize's global variable
     M.Datepicker.init(dateEl, {
         format: 'yyyy-mm-dd',
+        defaultDate: new Date(),
+        setDefaultDate: true,
         autoClose: true
     });
 </script>
