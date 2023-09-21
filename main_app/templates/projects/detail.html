@@ -4,10 +4,10 @@
 <h1>Project Details</h1>
 
 <a href="{% url 'projects_delete' project.id %}">
-  <button type="button">Delete Project</button>
+  <button type="button" class="button danger">Delete Project</button>
 </a>
 <a href="{% url 'projects_update' project.id %}">
-  <button type="button">Update Project</button>
+  <button type="submit" class="button grey-btn">Update Project</button>
 </a>
 
 <hr>
@@ -17,7 +17,7 @@
 <hr>
 <h5>Tasks</h5>
 <!-- Modal Trigger -->
-<a class="waves-effect waves-light btn-small blue modal-trigger" href="#modal1">New Task</a>
+<a class="button royal" href="#modal1">New Task</a>
 
 <table class="highlight">
   <thead>
