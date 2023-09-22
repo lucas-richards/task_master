@@ -2,45 +2,73 @@
 
 {% block content %}
 <a href="{% url 'projects_detail' project.id %}">
-  <button type="button" class="button black-btn">Back to Project</button>
+  <i class="material-icons">arrow_back</i>
 </a>
-<h1>Task: <span class="teal-text">{{task.title}}</span></h1>
-<hr>
-
-<h6><span class="bold">Description:</span> {{ task.description}}</h6>
-<h6>Project: {{ project.title }}</h6>
-
-<h6 class="task_status"><span>Status:</span> {% if task.status == "P" %}
-  <div class="status-wrapper">
-    <div class="status yellow"></div>
-    <span>In Process</span>
+<small class="right">Created by {{ task.created_by}} on {{ task.created_date}}</small>
+<div class="task-container1">
+  <h6 class="task_status right"> 
+    <div class="status-wrapper">
+      {% if task.status == "P" %}
+        <div class="status yellow"></div>
+        <span>In Process</span>
+      {% elif task.status == "H" %}
+        <div class="status red"></div>
+        <span>On Hold</span>
+      {% elif task.status == "C" %}
+        <div class="status green"></div>
+        <span>Completed</span>
+      {% endif %}
+    </div>
+  </h6>
+  <h1 class="">{{task.title}}</h1>
+  <div class="attributes-container">
+    <div class="attributes-wrapper">
+      <div class="priority-wrapper">
+        {% if task.priority == "H" %}
+          <div class="priority1 red"></div>
+          <div class="priority1 red"></div>
+          <div class="priority1 red"></div>
+        {% elif task.priority == "M" %}
+          <div class="priority1 orange"></div>
+          <div class="priority1 orange"></div>
+        {% elif task.priority == "L" %}
+          <div class="priority1 green"></div>
+        {% endif %}
+        </div>
+    </div>
+    <div class="attributes-wrapper">
+      <i class="material-icons">folder</i>
+      <p>{{ project.title}}</p>
+    </div>
+    <div class="attributes-wrapper">
+      <i class="material-icons">person</i>
+      <p>{{ task.assignee}}</p>
+    </div>
+    <div class="attributes-wrapper">
+      <p>{{ task.due_date}}</p> 
+    </div>
   </div>
-  {% elif task.status == "H" %}
-  <div class="status-wrapper">
-    <div class="status red"></div>
-    <span>On Hold</span>
-  </div>
-  {% elif task.status == "C" %}
-  <div class="status-wrapper">
-    <div class="status green"></div>
-    <span>Completed</span>
-  </div>
+  
+  <br><br>
+  </h6>
+  <p class="grey-text">Description</p>
+  <p >{{ task.description}} </p>
+  
+  {% if not cannot_edit_task %}
+    <div class="button_row">
+      <a href="{% url 'tasks_delete' task.id %}">
+        <button type="button" class="button danger">Delete Task</button>
+      </a>
+      <a href="{% url 'tasks_update' task.id %}">
+        <button type="button" class="button grey-btn">Update Task</button>
+      </a>
+    </div>
   {% endif %}
-</h6>
-<p>Created by: {{ task.created_by}}</p>
-<p>Assigned to: {{ task.assignee}}</p>
-{% if not cannot_edit_task %}
-<div class="button_row">
-  <a href="{% url 'tasks_delete' task.id %}">
-    <button type="button" class="button danger">Delete Task</button>
-  </a>
-  <a href="{% url 'tasks_update' task.id %}">
-    <button type="button" class="button grey-btn">Update Task</button>
-  </a>
 </div>
-{% endif %}
 <hr>
-<h5>Comments</h5>
+<br>
+<i class="material-icons">question_answer</i>
+<h5 style="display: inline;">Comments</h5>
 {% for comment in comments %}
 <div class="card">
   <div class="card-content">

@@ -74,18 +74,6 @@ footer.page-footer {
     gap: 15px;
 }
 
-h1 {
-    text-align: center;
-}
-
-
-
-
-
-
-
-
-
 /* Custom Navy Blue */
 .navy {
     background-color: #001F3F !important;
@@ -167,7 +155,7 @@ h1 {
     flex-direction: column;
     align-items: center;
     justify-content: end;
-    width: 80px;
+    width: 35px;
     height: 20px;
     padding: 2px;
 }
@@ -396,3 +384,16 @@ th {
     text-decoration: underline;
     font-size: 24px;
 }
+/* task detail page */
+.attributes-container{
+    display: flex;
+}
+.attributes-wrapper{
+    display: flex;
+    align-items: end;
+    background-color: rgba(200, 200, 200, 0.4);
+    padding: 5px 10px 5px 10px;
+    margin: 5px;
+    border-radius: 5px;
+}
+

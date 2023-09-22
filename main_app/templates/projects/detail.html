@@ -43,22 +43,16 @@
       <td>
         <div class="priority-wrapper">
         {% if task.priority == "H" %}
-        
           <div class="priority1 red"></div>
           <div class="priority1 red"></div>
           <div class="priority1 red"></div>
-        
         {% elif task.priority == "M" %}
-        
           <div class="priority1 orange"></div>
           <div class="priority1 orange"></div>
-
         {% elif task.priority == "L" %}
-        
           <div class="priority1 green"></div>
-        
         {% endif %}
-      </div>
+        </div>
       </td>
       
       <td>{{task.title}}</td>

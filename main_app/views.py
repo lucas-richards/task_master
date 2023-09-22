@@ -130,7 +130,7 @@ def edit_task(request, pk):
         elif form.is_valid():
             edited_task = form.save(commit=False)
             edited_task.save()
-            return redirect('projects_detail', proj_id=str(task.project.id))
+            return redirect('tasks_detail', proj_id=task.project.id,task_id=task.id)
         else:
             error_message = 'Invalid task update'
 
