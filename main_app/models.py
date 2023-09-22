@@ -39,6 +39,7 @@ class Profile(models.Model):
     
     def is_manager(self):
         return self.department == "Man"
+    
 
 
 class Project(models.Model):
@@ -101,3 +102,7 @@ class Comment(models.Model):
         Task, on_delete=models.CASCADE, null=True, blank=True)
     project = models.ForeignKey(
         Project, on_delete=models.CASCADE, null=True, blank=True)
+    
+    def is_creator(self, user):
+        return self.user == user
+        
