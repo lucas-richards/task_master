@@ -22,7 +22,6 @@ class Migration(migrations.Migration):
 
                 ('due_date', models.DateField(default=datetime.datetime(2023, 12, 20, 19, 30, 35, 207411))),
 
-                ('due_date', models.DateField(default=datetime.datetime(2023, 12, 20, 14, 57, 34, 456188))),
 
                 ('status', models.CharField(choices=[('P', 'In Process'), ('H', 'On Hold'), ('C', 'Completed')], default='P', max_length=1)),
             ],
@@ -39,7 +38,7 @@ class Migration(migrations.Migration):
 
                 ('due_date', models.DateField(default=datetime.datetime(2023, 12, 20, 19, 30, 35, 207585))),
 
-                ('due_date', models.DateField(default=datetime.datetime(2023, 12, 20, 14, 57, 34, 457892))),
+                
 
                 ('created_date', models.DateTimeField(auto_now_add=True)),
                 ('status', models.CharField(choices=[('P', 'In Process'), ('H', 'On Hold'), ('C', 'Completed')], default='P', max_length=1)),
