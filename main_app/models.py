@@ -20,7 +20,7 @@ DEPARTMENT = (
     ('Qua', 'Quality/Testing'),
     ('Dev', 'Developers'),
     ('Des', 'Design'),
-    ('Arq', 'Arquitect'),
+    ('Arc', 'Arcitect'),
     ('Man', 'Manager'),
 )
 
@@ -30,16 +30,15 @@ DEPARTMENT = (
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     department = models.CharField(
-      max_length=3,
-      #add choices field option that creates drop down
-      choices=DEPARTMENT,
-      default=DEPARTMENT[0][0])
-    image_url = models.CharField(default='/static/profile-image.jpeg',max_length=200)
-    
-    
+        max_length=3,
+        # add choices field option that creates drop down
+        choices=DEPARTMENT,
+        default=DEPARTMENT[0][0])
+    image_url = models.CharField(
+        default='/static/profile-image.jpeg', max_length=200)
+
     def is_manager(self):
         return self.department == "Man"
-    
 
 
 class Project(models.Model):
@@ -88,9 +87,9 @@ class Task(models.Model):
 
     def late(self):
         return self.due_date < date.today()
+
     def is_assignee(self, user):
         return self.assignee == user
-
 
 
 # Comment
@@ -102,7 +101,6 @@ class Comment(models.Model):
         Task, on_delete=models.CASCADE, null=True, blank=True)
     project = models.ForeignKey(
         Project, on_delete=models.CASCADE, null=True, blank=True)
-    
+
     def is_creator(self, user):
         return self.user == user
-        
