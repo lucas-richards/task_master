@@ -54,12 +54,12 @@ def profile_update(request, prof_id):
 # REGISTRATION VIEWS
 
 
-def team(request):
-    tasks = Task.objects.filter()
-    users = User.objects.filter()
+def my_tasks(request, user_id):
+    tasks = Task.objects.filter(assignee = user_id)
+    user = User.objects.get(id = request.user.id)
     return render(request, 'team.html', {
         'tasks': tasks,
-        'users': users,
+        'user': user,
     })
 
 # TASK VIEWS
@@ -72,16 +72,23 @@ class TaskList(ListView):
 
 def tasks_detail(request, proj_id, task_id):
     task = Task.objects.get(id=task_id)
-    profiles = Profile.objects.filter()
+    profile = Profile.objects.get(user=request.user)
     project = Project.objects.get(id=proj_id)
     comment_form = CommentForm()
     comments = Comment.objects.filter(task=task_id)
+    
+    cannot_edit_task = not (profile.is_manager()
+                            or task.is_assignee(request.user))
+    user = request.user
     return render(request, 'tasks/detail.html', {
         'project': project,
+        'profile': profile,
         'task': task,
         'comments': comments,
         'comment_form': comment_form,
-        'profiles': profiles
+        'cannot_edit_task': cannot_edit_task,
+        'user': user
+
     })
 
 
@@ -169,10 +176,12 @@ def projects_detail(request, proj_id):
     project = Project.objects.get(id=proj_id)
     tasks = Task.objects.filter(project=proj_id)
     task_form = TaskForm()
+    profile = Profile.objects.get(user=request.user)
     return render(request, 'projects/detail.html', {
         'project': project,
         'tasks': tasks,
-        'task_form': task_form
+        'task_form': task_form,
+        "profile": profile
     })
 
 

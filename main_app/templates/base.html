@@ -3,6 +3,8 @@
 <html lang="en">
 
 <head>
+  <link rel="shortcut icon" type="image/png" sizes="32x32" img src="{% static 'favicon-32x32x.png' %}">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -10,13 +12,12 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Source+Sans+3&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Source+Sans+3&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-  <link rel="stylesheet" href="{% static 'path_to_your_button_stylesheet.css' %}">
-
 </head>
 
 <body>
@@ -25,13 +26,13 @@
   <body>
     <div class="container">
       <div class="sidebar">
-        <img src="{% static 'Logo.png' %}"class="sidebar-logo-img" ALT="Task Master Logo">     
-         <ul class="sidebar-nav">
-          <li><a href="/admin">Admin</a></li>
+        <img src="{% static 'Logo.png' %}" class="sidebar-logo-img" ALT="Task Master Logo">
+        <ul class="sidebar-nav">
           <li><a href="{% url 'about' %}">About</a></li>
           {% if user.is_authenticated %}
           <li><a href="{% url 'projects_index' %}">Projects</a></li>
-          <li><a href="{% url 'team' %}">Team</a></li>
+          <li><a href="{% url 'my_tasks' user.id %}">My Tasks</a></li>
+
           <li><a href="{% url 'profile_detail' user.profile.id %}">Profile</a></li>
           <li><a href="{% url 'logout' %}">Log Out</a></li>
           {% else %}

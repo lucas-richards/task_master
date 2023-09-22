@@ -31,7 +31,7 @@ urlpatterns = [
     path('profile/<int:prof_id>/update/', views.profile_update, name='profile_update'),
     path('profile/<int:prof_id>/add_photo/', views.add_photo, name='add_photo'),
     # TEAM
-    path('team/', views.team, name='team'),
+    path('my_tasks/<int:user_id>/',views.my_tasks, name='my_tasks'),
 
 
 ]
