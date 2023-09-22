@@ -38,7 +38,7 @@
     {% for task in tasks %}
 
     <tr class="clickable-row" data-href="{% url 'tasks_detail' project.id task.id %}">
-      <td>{{task.priority}}</td>
+      <td>{{task.get_priority_display}}</td>
       <td>{{task.title}}</td>
       <td>{{task.description}}</td>
 
