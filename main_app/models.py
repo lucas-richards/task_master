@@ -20,7 +20,7 @@ DEPARTMENT = (
     ('Qua', 'Quality/Testing'),
     ('Dev', 'Developers'),
     ('Des', 'Design'),
-    ('Arc', 'Arcitect'),
+    ('Arc', 'Architect'),
     ('Man', 'Manager'),
 )
 
