@@ -29,7 +29,8 @@
           <li><a href="{% url 'about' %}">About</a></li>
           {% if user.is_authenticated %}
           <li><a href="{% url 'projects_index' %}">Projects</a></li>
-          <li><a href="{% url 'team' %}">Team</a></li>
+          <li><a href="{% url 'my_tasks' user.id %}">My Tasks</a></li>
+
           <li><a href="{% url 'profile_detail' user.profile.id %}">Profile</a></li>
           <li><a href="{% url 'logout' %}">Log Out</a></li>
           {% else %}
