@@ -1,12 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 <a href="{% url 'projects_detail' project.id %}">
   <i class="material-icons">arrow_back</i>
 </a>
-<small class="right">Created by {{ task.created_by}} on {{ task.created_date}}</small>
+{% if not cannot_edit_task %}   
+  <a href="{% url 'tasks_delete' task.id %}">
+    <button type="button" class="button danger right">Delete Task</button>
+  </a>
+  <a href="{% url 'tasks_update' task.id %}">
+    <button type="button" class="button grey-btn right">Update Task</button>
+  </a>
+{% endif %}
+
 <div class="task-container1">
-  <h6 class="task_status right"> 
+  <h6 class="task_status attributes-wrapper right"> 
     <div class="status-wrapper">
       {% if task.status == "P" %}
         <div class="status yellow"></div>
@@ -52,19 +61,10 @@
   <br><br>
   </h6>
   <p class="grey-text">Description</p>
-  <p >{{ task.description}} </p>
-  
-  {% if not cannot_edit_task %}
-    <div class="button_row">
-      <a href="{% url 'tasks_delete' task.id %}">
-        <button type="button" class="button danger">Delete Task</button>
-      </a>
-      <a href="{% url 'tasks_update' task.id %}">
-        <button type="button" class="button grey-btn">Update Task</button>
-      </a>
-    </div>
-  {% endif %}
+  <p>{{ task.description}} </p>
+  <small class="right">Created by {{ task.created_by}} on {{ task.created_date}}</small>
 </div>
+<br>
 <hr>
 <br>
 <i class="material-icons">question_answer</i>
