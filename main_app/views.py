@@ -160,13 +160,6 @@ class TaskDelete(DeleteView):
         redirect_success_url = '/projects/' + str(project_id)
         return redirect_success_url
 
-
-# # PROJECT VIEWS
-# class ProjectList(ListView):
-#     model = Project
-#     template_name = 'projects/index.html'
-
-
 def projects_index(request):
     projects = Project.objects.filter()
     profile = Profile.objects.get(user=request.user)
@@ -179,12 +172,22 @@ def projects_index(request):
 def projects_detail(request, proj_id):
     project = Project.objects.get(id=proj_id)
     tasks = Task.objects.filter(project=proj_id)
+    tasks_count = Task.objects.filter(project=proj_id).count()
+    tasks_p = Task.objects.filter(status='P',project=proj_id).count()
+    tasks_c = Task.objects.filter(status='C',project=proj_id).count()
+    tasks_h = Task.objects.filter(status='H',project=proj_id).count()
     task_form = TaskForm()
+    kpi = int(tasks_c/tasks_count*100)
     profile = Profile.objects.get(user=request.user)
     return render(request, 'projects/detail.html', {
         'project': project,
         'tasks': tasks,
+        'tasks_count': tasks_count,
+        'tasks_p': tasks_p,
+        'tasks_c': tasks_c,
+        'tasks_h': tasks_h,
         'task_form': task_form,
+        'kpi': kpi,
         "profile": profile
     })
 

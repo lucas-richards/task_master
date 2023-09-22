@@ -11,34 +11,42 @@
           <th>Title</th>
           <th>Description</th>
           <th>Status</th>
-          <th>Assigned To</th>
           <th>Due Date</th>
       </tr>
   </thead>
   <tbody>
       {% for task in tasks %}
       <tr class="clickable-row" data-href="{% url 'tasks_detail' task.project.id task.id%}">
-        <td>{{task.priority}}</td>
+        <td>
+          <div class="priority-wrapper">
+            {% if task.priority == "H" %}
+              <div class="priority1 red"></div>
+              <div class="priority1 red"></div>
+              <div class="priority1 red"></div>
+            {% elif task.priority == "M" %}
+              <div class="priority1 orange"></div>
+              <div class="priority1 orange"></div>
+            {% elif task.priority == "L" %}
+              <div class="priority1 green"></div>
+            {% endif %}
+          </div>
+        </td>
         <td>{{task.title}}</td>
         <td>{{task.description}}</td>
-        <td>{% if task.status == "P" %}
+        <td>
           <div class="status-wrapper">
-              <div class="status green"></div>
-              <span>In Process</span>
-          </div>
-          {% elif task.status == "H" %}
-          <div class="status-wrapper">
+            {% if task.status == "P" %}
               <div class="status yellow"></div>
-              <span>On Hold</span>
+              <span>In Process</span>
+            {% elif task.status == "H" %}
+                <div class="status red"></div>
+                <span>On Hold</span>
+            {% elif task.status == "C" %}
+                <div class="status green"></div>
+                <span>Completed</span>
+            {% endif %}
           </div>
-          {% elif task.status == "C" %}
-          <div class="status-wrapper">
-              <div class="status red"></div>
-              <span>Completed</span>
-          </div>
-          {% endif %}
         </td>
-        <td>{{task.assignee}}</td>
         <td>
           {% if task.late %}
           <div class="red-text">{{task.due_date}}</div>
