@@ -162,16 +162,34 @@ h1 {
     overflow: hidden;
     margin-right: 10px;
 }
+.priority-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    width: 80px;
+    height: 20px;
+    padding: 2px;
+}
 
-.status.green {
+
+
+.priority1 {
+    width: 20px;
+    height: 3px;
+    margin: 0.5px;
+}
+
+
+.green {
     background-color: green;
 }
 
-.status.yellow {
+.yellow {
     background-color: yellow;
 }
 
-.status.red {
+.red {
     background-color: red;
 }
 

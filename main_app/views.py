@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .forms import TaskForm, CommentForm, UserUpdateForm, ProfileUpdateForm, RegistrationForm
 from .models import Project, Profile, Task, Comment, User
+from django.contrib.auth.decorators import login_required
+# this is to restrict access to CBM or mixins
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # registration imports
 from django.contrib.auth import login
@@ -21,13 +24,14 @@ class ProfileDetail(DetailView):
     model = Profile
     template_name = 'profile/detail.html'
 
-
+@login_required
 def profile_detail(request, prof_id):
     profile = Profile.objects.get(id=prof_id)
     return render(request, 'profile/detail.html', {
         'profile': profile,
     })
 
+@login_required
 def profile_update(request, prof_id):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance = request.user)
@@ -69,7 +73,7 @@ class TaskList(ListView):
     model = Task
     template_name = 'tasks/index.html'
 
-
+@login_required
 def tasks_detail(request, proj_id, task_id):
     task = Task.objects.get(id=task_id)
     profile = Profile.objects.get(user=request.user)
@@ -91,7 +95,7 @@ def tasks_detail(request, proj_id, task_id):
 
     })
 
-
+@login_required
 def add_task(request, proj_id):
     error_message = ''
     if request.method == 'POST':
@@ -109,7 +113,7 @@ def add_task(request, proj_id):
                'class_name': 'Task'}
     return render(request, 'main_app/form.html', context)
 
-
+@login_required
 def edit_task(request, pk):
     error_message = ''
     task = Task.objects.get(id=pk)
@@ -171,7 +175,7 @@ def projects_index(request):
         "profile": profile
     })
 
-
+@login_required
 def projects_detail(request, proj_id):
     project = Project.objects.get(id=proj_id)
     tasks = Task.objects.filter(project=proj_id)

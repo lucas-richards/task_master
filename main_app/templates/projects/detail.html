@@ -1,4 +1,6 @@
+
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <h1>Project: <span class="teal-text">{{project.title}}</span></h1>
@@ -38,7 +40,27 @@
     {% for task in tasks %}
 
     <tr class="clickable-row" data-href="{% url 'tasks_detail' project.id task.id %}">
-      <td>{{task.get_priority_display}}</td>
+      <td>
+        <div class="priority-wrapper">
+        {% if task.priority == "H" %}
+        
+          <div class="priority1 red"></div>
+          <div class="priority1 red"></div>
+          <div class="priority1 red"></div>
+        
+        {% elif task.priority == "M" %}
+        
+          <div class="priority1 orange"></div>
+          <div class="priority1 orange"></div>
+
+        {% elif task.priority == "L" %}
+        
+          <div class="priority1 green"></div>
+        
+        {% endif %}
+      </div>
+      </td>
+      
       <td>{{task.title}}</td>
       <td>{{task.description}}</td>
 

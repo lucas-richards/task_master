@@ -8,7 +8,7 @@ class TaskForm(ModelForm):
 
     class Meta:
         model = Task
-        fields = ['title', 'description','status', 'assignee', 'due_date']
+        fields = ['title', 'description','priority','status', 'assignee', 'due_date']
 
 
 class CommentForm(ModelForm):
