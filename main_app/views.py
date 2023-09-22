@@ -43,12 +43,12 @@ class ProfileUpdate(UpdateView):
 # REGISTRATION VIEWS
 
 
-def team(request):
-    tasks = Task.objects.filter()
-    users = User.objects.filter()
+def my_tasks(request, user_id):
+    tasks = Task.objects.filter(assignee = user_id)
+    user = User.objects.get(id = request.user.id)
     return render(request, 'team.html', {
         'tasks': tasks,
-        'users': users,
+        'user': user,
     })
 
 # TASK VIEWS
