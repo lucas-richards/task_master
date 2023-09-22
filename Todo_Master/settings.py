@@ -96,28 +96,28 @@ WSGI_APPLICATION = 'Todo_Master.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'task_master',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'task_master',
+#     }
+# }
 
 pw = env('DB_PW')
 
-# DATABASES = {
-#   'default': {
-#     'ENGINE': 'django.db.backends.postgresql',
-#     'NAME': 'neondb',
-#     'USER': 'lucasrichardsdev',
-#     'PASSWORD': pw,
-#     'HOST': 'ep-snowy-fire-50411496.us-west-2.aws.neon.tech',
-#     'PORT': '5432',
-#     # 'OPTIONS': {
-#     #         'sslmode': 'require',
-#     #     },
-#   }
-# }
+DATABASES = {
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'neondb',
+    'USER': 'lucasrichardsdev',
+    'PASSWORD': pw,
+    'HOST': 'ep-still-cake-79917653.us-west-2.aws.neon.tech',
+    'PORT': '5432',
+    'OPTIONS': {
+            'sslmode': 'require',
+        },
+  }
+}
 
 
 # Password validation
