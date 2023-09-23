@@ -177,6 +177,7 @@ def projects_detail(request, proj_id):
     tasks_c = Task.objects.filter(status='C',project=proj_id).count()
     tasks_h = Task.objects.filter(status='H',project=proj_id).count()
     task_form = TaskForm()
+    if tasks_count == 0: tasks_count = 1 #so the division doesn't fail
     kpi = int(tasks_c/tasks_count*100)
     profile = Profile.objects.get(user=request.user)
     return render(request, 'projects/detail.html', {
