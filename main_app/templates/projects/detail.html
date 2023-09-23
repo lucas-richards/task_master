@@ -7,36 +7,50 @@
 <a href="{% url 'projects_index' %}">
   <i class="material-icons">keyboard_backspace</i>
 </a>
-
-  <a class="right" href="{% url 'projects_delete' project.id %}">
-    <button type="button" class="button danger">Delete Project</button>
-  </a>
-  <a class="right" href="{% url 'projects_update' project.id %}">
-    <button type="submit" class="button grey-btn">Update Project</button>
-  </a>
-
+<a class="right" href="{% url 'projects_delete' project.id %}">
+  <button type="button" class="button danger">Delete Project</button>
+</a>
+<a class="right" href="{% url 'projects_update' project.id %}">
+  <button type="submit" class="button grey-btn">Update Project</button>
+</a>
 {% endif %}
 
-<h1 class="">{{project.title}}</h1>
+<h1>{{project.title}}</h1>
+
+
+
+
 <div class="row">
   <div class="col s6">
     <div class="attributes-container">
       <div class="attributes-wrapper">
-        <i class="material-icons">folder</i>
-        <p>Tasks 2</p>
+        <p><span class="bold">Due</span>: {{ project.due_date}}</p> 
       </div>
-      <div class="attributes-wrapper">
-        <p>{{ project.due_date}}</p> 
-      </div>
+      <h6 class="task_status attributes-wrapper right"> 
+        <div class="status-wrapper">
+          {% if project.status == "P" %}
+            <div class="status yellow"></div>
+            <span>In Process</span>
+          {% elif project.status == "H" %}
+            <div class="status red"></div>
+            <span>On Hold</span>
+          {% elif project.status == "C" %}
+            <div class="status green"></div>
+            <span>Completed</span>
+          {% endif %}
+        </div>
+      </h6>
     </div>
     <br>
     <p class="grey-text">Description</p>
     <p >{{ project.description}} </p>
   </div>
   <div class="col s6 center">
-    <div class="project-details">
-      <h6 class="center">KPI: {{ kpi }}%</h6>
-      <canvas id="barChart" width="400" height="200"></canvas> 
+    <div class="card">
+      <div class="card-content">
+        <h6 class="center">KPI: {{ kpi }}%</h6>
+        <canvas id="barChart" width="400" height="200"></canvas> 
+      </div>
     </div>
   </div>
 </div>
@@ -154,7 +168,7 @@
   var data = {
       labels: ['', '', ''],
       datasets: [{
-          label: 'Values',
+          label: 'Tasks',
           data: [{{tasks_c}}, {{tasks_p}}, {{tasks_h}}],
           backgroundColor: [
                'green',

@@ -321,14 +321,19 @@ html {
 
 .page-footer {
     background-color: darkblue;
-    /* text-align: center;
+    text-align: center;
     font-size: 0.9em;
     height: 50px;
-    margin: auto 0;  */
-    width: 100%; 
+    margin: auto 0; 
+    /* width: 100%; 
     position: absolute;
-    bottom: 0
+    bottom: 0 */
 
+}
+
+.bold {
+    font-weight: bold;
+    
 }
 
 
