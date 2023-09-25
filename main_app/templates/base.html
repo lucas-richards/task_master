@@ -24,31 +24,40 @@
 </head>
 
 <body>
-
-
-  <body>
+  
     <div class="container">
       <div class="sidebar">
         <img src="{% static 'Logo.png' %}" class="sidebar-logo-img" ALT="Task Master Logo">
         <ul class="sidebar-nav">
-          <li><a href="{% url 'about' %}">About</a></li>
+          
+          <li ><a href="{% url 'about' %}" class="nav-icons">About</a></li>
           {% if user.is_authenticated %}
           <li><a href="{% url 'projects_index' %}">Projects</a></li>
           <li><a href="{% url 'my_tasks' user.id %}">My Tasks</a></li>
-
-          <li><a href="{% url 'profile_detail' user.profile.id %}">Profile</a></li>
+          <li><a  href="{% url 'profile_detail' user.profile.id %}">Profile</a></li>
           <li><a href="{% url 'logout' %}">Log Out</a></li>
           {% else %}
           <li><a href="{% url 'signup' %}">Sign Up</a></li>
-          <li><a href="{% url 'login' %}">Log In</a></li>
+          <li><a  href="{% url 'login' %}">Log In</a></li>
           {% endif %}
         </ul>
+        <!-- mobile -->
+        
+        <ul class="sidenav" id="mobile-demo">
+          <li><a href="sass.html">About</a></li>
+          <li><a href="badges.html">Projects</a></li>
+          <li><a href="collapsible.html">My Tasks</a></li>
+        </ul>
+        <!-- end mobile -->
       </div>
       <main class="content-container">
         {% block content %}
         {% endblock %}
       </main>
     </div>
+
+    
+ 
     <footer class="page-footer">
       <div class="center">
 
@@ -58,6 +67,6 @@
     <script>
       M.AutoInit();
     </script>
-  </body>
+</body>
 
 </html>

@@ -298,6 +298,7 @@ html {
     padding: 5px 10px;
     display: block;
     font-size: 1.1em;
+ 
 }
 
 .content-container {
@@ -406,4 +407,16 @@ th {
     background-color:  rgba(200, 200, 200, 0.2);
 }
 
+.chart-container {
+    max-width: 300px;
+}
 
+.card {
+    border-radius: 25px;
+}
+
+.nav-icons {
+    display: flex;
+    background-color: red;
+    width: 300px;
+}
