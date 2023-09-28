@@ -316,3 +316,6 @@ def add_photo(request, prof_id):
             print('An error occurred uploading file to S3')
             print(e)
     return redirect('profile_detail', prof_id=prof_id)
+
+def func():
+    print("something")
