@@ -317,5 +317,3 @@ def add_photo(request, prof_id):
             print(e)
     return redirect('profile_detail', prof_id=prof_id)
 
-def func():
-    print("something")
